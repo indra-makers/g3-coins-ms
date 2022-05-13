@@ -3,44 +3,44 @@ package com.co.indra.coinmarketcap.coins.model.entities;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Coin_history implements Serializable {
+public class CoinHistory implements Serializable {
 
-    private Long history;
+    private Long idHistory;
 
     private String symbol;
 
-    private Date date_reg;
+    private Date dateReg;
 
     private Double high;
 
     private Double low;
 
-    private Double close_price;
+    private Double closePrice;
 
     private Double volume;
 
-    private Double market_cap;
+    private Double marketCap;
 
-    public Coin_history() {
+    public CoinHistory() {
     }
 
-    public Coin_history(Long history, String symbol, Date date, Double high, Double low, Double close, Double volume, Double market_cap) {
-        this.history = history;
+    public CoinHistory(Long history, String symbol, Date date, Double high, Double low, Double close, Double volume, Double marketCap) {
+        this.idHistory = history;
         this.symbol = symbol;
-        this.date_reg = date;
+        this.dateReg = date;
         this.high = high;
         this.low = low;
-        this.close_price = close;
+        this.closePrice = close;
         this.volume = volume;
-        this.market_cap = market_cap;
+        this.marketCap = marketCap;
     }
 
-    public Long getHistory() {
-        return history;
+    public Long getIdHistory() {
+        return idHistory;
     }
 
-    public void setHistory(Long history) {
-        this.history = history;
+    public void setIdHistory(Long history) {
+        this.idHistory = history;
     }
 
     public String getSymbol() {
@@ -52,11 +52,11 @@ public class Coin_history implements Serializable {
     }
 
     public Date getDate() {
-        return date_reg;
+        return dateReg;
     }
 
     public void setDate(Date date) {
-        this.date_reg = date;
+        this.dateReg = date;
     }
 
     public Double getHigh() {
@@ -76,11 +76,11 @@ public class Coin_history implements Serializable {
     }
 
     public Double getClose() {
-        return close_price;
+        return closePrice;
     }
 
     public void setClose(Double close) {
-        this.close_price = close;
+        this.closePrice = close;
     }
 
     public Double getVolume() {
@@ -91,11 +91,11 @@ public class Coin_history implements Serializable {
         this.volume = volume;
     }
 
-    public Double getMarket_cap() {
-        return market_cap;
+    public Double getMarketCap() {
+        return marketCap;
     }
 
-    public void setMarket_cap(Double market_cap) {
-        this.market_cap = market_cap;
+    public void setMarketCap(Double marketCap) {
+        this.marketCap = marketCap;
     }
 }

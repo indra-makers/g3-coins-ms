@@ -3,10 +3,10 @@ package com.co.indra.coinmarketcap.coins.model.entities;
 import java.io.Serializable;
 
 public class Category implements Serializable {
-    private Long id_category;
+    private Long idCategory;
 
 
-    private String name_category;
+    private String nameCategory;
 
 
     private String description;
@@ -14,26 +14,26 @@ public class Category implements Serializable {
     public Category() {
     }
 
-    public Category(Long id_category, String name_category, String description) {
-        this.id_category = id_category;
-        this.name_category = name_category;
+    public Category(Long idCategory, String nameCategory, String description) {
+        this.idCategory = idCategory;
+        this.nameCategory = nameCategory;
         this.description = description;
     }
 
-    public Long getId_category() {
-        return id_category;
+    public Long getIdCategory() {
+        return idCategory;
     }
 
-    public void setId_category(Long id_category) {
-        this.id_category = id_category;
+    public void setIdCategory(Long idCategory) {
+        this.idCategory = idCategory;
     }
 
-    public String getName_category() {
-        return name_category;
+    public String getNameCategory() {
+        return nameCategory;
     }
 
-    public void setName_category(String name_category) {
-        this.name_category = name_category;
+    public void setNameCategory(String nameCategory) {
+        this.nameCategory = nameCategory;
     }
 
     public String getDescription() {

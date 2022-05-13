@@ -6,35 +6,35 @@ public class Coin implements Serializable {
 
     private String symbol;
 
-    private String name_coin;
+    private String nameCoin;
 
     private String icon;
 
     private Double price;
 
-    private Double daily_variation;
+    private Double dailyVariation;
 
-    private Double weekly_variation;
+    private Double weeklyVariation;
 
-    private Double market_cap;
+    private Double marketCap;
 
-    private Double daily_vol;
+    private Double dailyVol;
 
-    private Double circulating_supply;
+    private Double circulatingSupply;
 
     public Coin() {
     }
 
-    public Coin(String symbol, String name_coin, String icon, Double price, Double daily_variation, Double weekly_variation, Double market_cap, Double daily_vol, Double circulating_supply) {
+    public Coin(String symbol, String nameCoin, String icon, Double price, Double dailyVariation, Double weeklyVariation, Double marketCap, Double dailyVol, Double circulatingSupply) {
         this.symbol = symbol;
-        this.name_coin = name_coin;
+        this.nameCoin = nameCoin;
         this.icon = icon;
         this.price = price;
-        this.daily_variation = daily_variation;
-        this.weekly_variation = weekly_variation;
-        this.market_cap = market_cap;
-        this.daily_vol = daily_vol;
-        this.circulating_supply = circulating_supply;
+        this.dailyVariation = dailyVariation;
+        this.weeklyVariation = weeklyVariation;
+        this.marketCap = marketCap;
+        this.dailyVol = dailyVol;
+        this.circulatingSupply = circulatingSupply;
     }
 
     public String getSymbol() {
@@ -45,12 +45,12 @@ public class Coin implements Serializable {
         this.symbol = symbol;
     }
 
-    public String getName_coin() {
-        return name_coin;
+    public String getNameCoin() {
+        return nameCoin;
     }
 
-    public void setName_coin(String name_coin) {
-        this.name_coin = name_coin;
+    public void setNameCoin(String nameCoin) {
+        this.nameCoin = nameCoin;
     }
 
     public String getIcon() {
@@ -69,43 +69,43 @@ public class Coin implements Serializable {
         this.price = price;
     }
 
-    public Double getDaily_variation() {
-        return daily_variation;
+    public Double getDailyVariation() {
+        return dailyVariation;
     }
 
-    public void setDaily_variation(Double daily_variation) {
-        this.daily_variation = daily_variation;
+    public void setDailyVariation(Double dailyVariation) {
+        this.dailyVariation = dailyVariation;
     }
 
-    public Double getWeekly_variation() {
-        return weekly_variation;
+    public Double getWeeklyVariation() {
+        return weeklyVariation;
     }
 
-    public void setWeekly_variation(Double weekly_variation) {
-        this.weekly_variation = weekly_variation;
+    public void setWeeklyVariation(Double weeklyVariation) {
+        this.weeklyVariation = weeklyVariation;
     }
 
-    public Double getMarket_cap() {
-        return market_cap;
+    public Double getMarketCap() {
+        return marketCap;
     }
 
-    public void setMarket_cap(Double market_cap) {
-        this.market_cap = market_cap;
+    public void setMarketCap(Double marketCap) {
+        this.marketCap = marketCap;
     }
 
-    public Double getDaily_vol() {
-        return daily_vol;
+    public Double getDailyVol() {
+        return dailyVol;
     }
 
-    public void setDaily_vol(Double daily_vol) {
-        this.daily_vol = daily_vol;
+    public void setDaily_vol(Double dailyVol) {
+        this.dailyVol = dailyVol;
     }
 
-    public Double getCirculating_supply() {
-        return circulating_supply;
+    public Double getCirculatingSupply() {
+        return circulatingSupply;
     }
 
-    public void setCirculating_supply(Double circulating_supply) {
-        this.circulating_supply = circulating_supply;
+    public void setCirculatingSupply(Double circulatingSupply) {
+        this.circulatingSupply = circulatingSupply;
     }
 }
