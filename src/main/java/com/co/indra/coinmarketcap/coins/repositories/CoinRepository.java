@@ -1,17 +1,14 @@
 package com.co.indra.coinmarketcap.coins.repositories;
 
 import com.co.indra.coinmarketcap.coins.model.entities.Coin;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 class CoinRowMapper implements RowMapper<Coin> {
-
 
     @Override
     public Coin mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -27,6 +24,7 @@ class CoinRowMapper implements RowMapper<Coin> {
         coin.setCirculatingSupply(rs.getDouble("circulatingSupply"));
         return coin;
     }
+
 }
 
 @Repository
