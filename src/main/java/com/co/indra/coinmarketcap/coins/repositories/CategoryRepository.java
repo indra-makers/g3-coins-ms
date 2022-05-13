@@ -12,20 +12,21 @@ import java.sql.SQLException;
 
 @Repository
 public class CategoryRepository {
+    @Autowired
+    private JdbcTemplate template;
 
-    class CategoryRowMapper implements RowMapper<Category> {
 
-        @Autowired
-        private JdbcTemplate template;
-        @Override
-        public Category mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Category category = new Category();
-            category.setIdCategory(rs.getLong("idCategory"));
-            category.setNameCategory(rs.getString("nameCategory"));
-            category.setDescription(rs.getString("description"));
-            return category;
-        }
+}
+
+class CategoryRowMapper implements RowMapper<Category> {
+
+
+    @Override
+    public Category mapRow(ResultSet rs, int rowNum) throws SQLException {
+        Category category = new Category();
+        category.setIdCategory(rs.getLong("idCategory"));
+        category.setNameCategory(rs.getString("nameCategory"));
+        category.setDescription(rs.getString("description"));
+        return category;
     }
-
-
 }

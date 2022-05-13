@@ -12,19 +12,21 @@ import java.sql.SQLException;
 
 @Repository
 public class CoinCategoryRepository {
+    @Autowired
+    private JdbcTemplate template;
 
-    class CoinCategoryRowMapper implements RowMapper<CoinCategory> {
 
-        @Autowired
-        private JdbcTemplate template;
-        @Override
-        public CoinCategory mapRow(ResultSet rs, int rowNum) throws SQLException {
-            CoinCategory coinCategory = new CoinCategory();
-            coinCategory.setId(rs.getLong("idCoinCategory"));
-            coinCategory.setIdCategory(rs.getLong("idCategory"));
-            coinCategory.setSymbol(rs.getString("symbol"));
-            return coinCategory;
-        }
+}
+
+class CoinCategoryRowMapper implements RowMapper<CoinCategory> {
+
+
+    @Override
+    public CoinCategory mapRow(ResultSet rs, int rowNum) throws SQLException {
+        CoinCategory coinCategory = new CoinCategory();
+        coinCategory.setId(rs.getLong("idCoinCategory"));
+        coinCategory.setIdCategory(rs.getLong("idCategory"));
+        coinCategory.setSymbol(rs.getString("symbol"));
+        return coinCategory;
     }
-
 }

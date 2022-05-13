@@ -13,25 +13,28 @@ import java.sql.SQLException;
 @Repository
 public class CoinHistoryRepository {
 
-    class CoinHistoryRowMapper implements RowMapper<CoinHistory> {
-
-        @Autowired
-        private JdbcTemplate template;
-        @Override
-        public CoinHistory mapRow(ResultSet rs, int rowNum) throws SQLException {
-            CoinHistory coinHistory = new CoinHistory();
-            coinHistory.setIdHistory(rs.getLong("idHistory"));
-            coinHistory.setSymbol(rs.getString("symbol"));
-            coinHistory.setDate(rs.getDate("dateReg"));
-            coinHistory.setHigh(rs.getDouble("high"));
-            coinHistory.setLow(rs.getDouble("low"));
-            coinHistory.setClose(rs.getDouble("closePrice"));
-            coinHistory.setVolume(rs.getDouble("volume"));
-            coinHistory.setMarketCap(rs.getDouble("marketCap"));
+    @Autowired
+    private JdbcTemplate template;
 
 
-            return coinHistory;
-        }
+}
+
+class CoinHistoryRowMapper implements RowMapper<CoinHistory> {
+
+
+    @Override
+    public CoinHistory mapRow(ResultSet rs, int rowNum) throws SQLException {
+        CoinHistory coinHistory = new CoinHistory();
+        coinHistory.setIdHistory(rs.getLong("idHistory"));
+        coinHistory.setSymbol(rs.getString("symbol"));
+        coinHistory.setDate(rs.getDate("dateReg"));
+        coinHistory.setHigh(rs.getDouble("high"));
+        coinHistory.setLow(rs.getDouble("low"));
+        coinHistory.setClose(rs.getDouble("closePrice"));
+        coinHistory.setVolume(rs.getDouble("volume"));
+        coinHistory.setMarketCap(rs.getDouble("marketCap"));
+
+
+        return coinHistory;
     }
-
 }
