@@ -1,5 +1,6 @@
 package com.co.indra.coinmarketcap.coins.model.entities;
 
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,6 +8,7 @@ public class CoinHistory implements Serializable {
 
     private Long idHistory;
 
+    @Pattern(regexp = "[A-Z]{3}")
     private String symbol;
 
     private Date dateReg;

@@ -1,5 +1,6 @@
 package com.co.indra.coinmarketcap.coins.model.entities;
 
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 public class CoinCategory implements Serializable {
@@ -8,6 +9,7 @@ public class CoinCategory implements Serializable {
 
     private Long idCategory;
 
+    @Pattern(regexp = "[A-Z]{3}")
     private String symbol;
 
     public CoinCategory() {

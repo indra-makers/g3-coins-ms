@@ -1,6 +1,6 @@
 create table public.tbl_coins(
     id_coin serial,
-    symbol varchar(5) NOT NULL UNIQUE,
+    symbol varchar(3) NOT NULL UNIQUE,
     name_coin varchar(10) NOT NULL,
     icon varchar(255) NOT NULL,
     price decimal(20,5),
@@ -14,7 +14,7 @@ create table public.tbl_coins(
 
 create table public.tbl_coin_histories(
     id_history serial primary key,
-    symbol varchar(5) NOT NULL,
+    symbol varchar(3) NOT NULL,
     id_coin int NOT NULL,
     date_reg timestamp,
     high decimal(2,2),
@@ -34,7 +34,7 @@ create table public.tbl_categories(
 create table public.tbl_coin_categories(
     id_coin_category serial primary key,
     id_category int,
-    symbol varchar(5) NOT NULL,
+    symbol varchar(3) NOT NULL,
     foreign key(symbol) references tbl_coins(symbol),
     foreign key(id_category) references tbl_categories(id_category)
 );
