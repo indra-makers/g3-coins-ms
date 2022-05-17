@@ -16,7 +16,7 @@ create table public.tbl_coin_histories(
     id_history serial primary key,
     symbol varchar(3) NOT NULL,
     id_coin int NOT NULL,
-    date_reg timestamp,
+    "date_reg" timestamp NOT NULL DEFAULT now(),
     high decimal(2,2),
     low decimal(2,2),
     close_price decimal(20,5),

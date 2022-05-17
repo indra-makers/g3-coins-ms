@@ -6,98 +6,110 @@ import java.util.Date;
 
 public class CoinHistory implements Serializable {
 
-    private Long idHistory;
+	private Long idHistory;
 
-    @Pattern(regexp = "[A-Z]{3}")
-    private String symbol;
+	@Pattern(regexp = "[A-Z]{3}")
+	private String symbol;
 
-    private Date dateReg;
+	private Long idCoin;
 
-    private Double high;
+	private Date dateReg;
 
-    private Double low;
+	private Double high;
 
-    private Double closePrice;
+	private Double low;
 
-    private Double volume;
+	private Double closePrice;
 
-    private Double marketCap;
+	private Double volume;
 
-    public CoinHistory() {
-    }
+	private Double marketCap;
 
-    public CoinHistory(Long history, String symbol, Date date, Double high, Double low, Double close, Double volume, Double marketCap) {
-        this.idHistory = history;
-        this.symbol = symbol;
-        this.dateReg = date;
-        this.high = high;
-        this.low = low;
-        this.closePrice = close;
-        this.volume = volume;
-        this.marketCap = marketCap;
-    }
+	public CoinHistory() {
+	}
 
-    public Long getIdHistory() {
-        return idHistory;
-    }
+	public CoinHistory(@Pattern(regexp = "[A-Z]{3}") String symbol, Long idCoin, Double high, Double low,
+			Double closePrice, Double volume, Double marketCap) {
+		super();
+		this.symbol = symbol;
+		this.idCoin = idCoin;
+		this.high = high;
+		this.low = low;
+		this.closePrice = closePrice;
+		this.volume = volume;
+		this.marketCap = marketCap;
+	}
 
-    public void setIdHistory(Long history) {
-        this.idHistory = history;
-    }
+	public Long getIdHistory() {
+		return idHistory;
+	}
 
-    public String getSymbol() {
-        return symbol;
-    }
+	public void setIdHistory(Long idHistory) {
+		this.idHistory = idHistory;
+	}
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
+	public String getSymbol() {
+		return symbol;
+	}
 
-    public Date getDate() {
-        return dateReg;
-    }
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
 
-    public void setDate(Date date) {
-        this.dateReg = date;
-    }
+	public Long getIdCoin() {
+		return idCoin;
+	}
 
-    public Double getHigh() {
-        return high;
-    }
+	public void setIdCoin(Long idCoin) {
+		this.idCoin = idCoin;
+	}
 
-    public void setHigh(Double high) {
-        this.high = high;
-    }
+	public Date getDateReg() {
+		return dateReg;
+	}
 
-    public Double getLow() {
-        return low;
-    }
+	public void setDateReg(Date dateReg) {
+		this.dateReg = dateReg;
+	}
 
-    public void setLow(Double low) {
-        this.low = low;
-    }
+	public Double getHigh() {
+		return high;
+	}
 
-    public Double getClose() {
-        return closePrice;
-    }
+	public void setHigh(Double high) {
+		this.high = high;
+	}
 
-    public void setClose(Double close) {
-        this.closePrice = close;
-    }
+	public Double getLow() {
+		return low;
+	}
 
-    public Double getVolume() {
-        return volume;
-    }
+	public void setLow(Double low) {
+		this.low = low;
+	}
 
-    public void setVolume(Double volume) {
-        this.volume = volume;
-    }
+	public Double getClosePrice() {
+		return closePrice;
+	}
 
-    public Double getMarketCap() {
-        return marketCap;
-    }
+	public void setClosePrice(Double closePrice) {
+		this.closePrice = closePrice;
+	}
 
-    public void setMarketCap(Double marketCap) {
-        this.marketCap = marketCap;
-    }
+	public Double getVolume() {
+		return volume;
+	}
+
+	public void setVolume(Double volume) {
+		this.volume = volume;
+	}
+
+	public Double getMarketCap() {
+		return marketCap;
+	}
+
+	public void setMarketCap(Double marketCap) {
+		this.marketCap = marketCap;
+	}
+
 }
