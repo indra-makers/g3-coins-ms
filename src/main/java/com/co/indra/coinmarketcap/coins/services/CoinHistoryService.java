@@ -14,7 +14,7 @@ public class CoinHistoryService {
 	@Autowired
 	CoinHistoryRepository coinHistoryRepository;
 
-	public void registerHistoryCoin(@Pattern(regexp = "[A-Z]{3}") String symbol, Long idCoin, Double high, Double low,
+	public void registerHistoryCoin(String symbol, Long idCoin, Double high, Double low,
 			Double closePrice, Double volume, Double marketCap) {
 
 		coinHistoryRepository

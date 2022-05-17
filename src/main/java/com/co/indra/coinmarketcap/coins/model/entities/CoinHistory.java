@@ -28,7 +28,7 @@ public class CoinHistory implements Serializable {
 	public CoinHistory() {
 	}
 
-	public CoinHistory(@Pattern(regexp = "[A-Z]{3}") String symbol, Long idCoin, Double high, Double low,
+	public CoinHistory(String symbol, Long idCoin, Double high, Double low,
 			Double closePrice, Double volume, Double marketCap) {
 		super();
 		this.symbol = symbol;
