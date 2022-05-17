@@ -13,8 +13,8 @@ class CoinCategoryRowMapper implements RowMapper<CoinCategory> {
     @Override
     public CoinCategory mapRow(ResultSet rs, int rowNum) throws SQLException {
         CoinCategory coinCategory = new CoinCategory();
-        coinCategory.setId(rs.getLong("idCoinCategory"));
-        coinCategory.setIdCategory(rs.getLong("idCategory"));
+        coinCategory.setId(rs.getLong("id_coin_category"));
+        coinCategory.setIdCategory(rs.getLong("id_category"));
         coinCategory.setSymbol(rs.getString("symbol"));
         return coinCategory;
     }

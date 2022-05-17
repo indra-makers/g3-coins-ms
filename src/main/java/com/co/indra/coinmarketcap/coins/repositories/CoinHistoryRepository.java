@@ -13,14 +13,14 @@ class CoinHistoryRowMapper implements RowMapper<CoinHistory> {
     @Override
     public CoinHistory mapRow(ResultSet rs, int rowNum) throws SQLException {
         CoinHistory coinHistory = new CoinHistory();
-        coinHistory.setIdHistory(rs.getLong("idHistory"));
+        coinHistory.setIdHistory(rs.getLong("id_history"));
         coinHistory.setSymbol(rs.getString("symbol"));
-        coinHistory.setDate(rs.getDate("dateReg"));
+        coinHistory.setDate(rs.getDate("date_reg"));
         coinHistory.setHigh(rs.getDouble("high"));
         coinHistory.setLow(rs.getDouble("low"));
-        coinHistory.setClose(rs.getDouble("closePrice"));
+        coinHistory.setClose(rs.getDouble("close_price"));
         coinHistory.setVolume(rs.getDouble("volume"));
-        coinHistory.setMarketCap(rs.getDouble("marketCap"));
+        coinHistory.setMarketCap(rs.getDouble("market_cap"));
         return coinHistory;
     }
 

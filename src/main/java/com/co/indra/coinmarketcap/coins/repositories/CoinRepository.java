@@ -1,7 +1,6 @@
 package com.co.indra.coinmarketcap.coins.repositories;
 
 import com.co.indra.coinmarketcap.coins.model.entities.Coin;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
@@ -11,6 +10,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import javax.validation.constraints.NotNull;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -19,18 +20,24 @@ class CoinRowMapper implements RowMapper<Coin> {
 
     @Override
     public Coin mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Coin coin = new Coin();
-        coin.setSymbol(rs.getString("symbol"));
-        coin.setNameCoin(rs.getString("nameCoin"));
-        coin.setIcon(rs.getString("icon"));
-        coin.setPrice(rs.getDouble("price"));
-        coin.setDailyVariation(rs.getDouble("dailyVariation"));
-        coin.setWeeklyVariation(rs.getDouble("weeklyVariation"));
-        coin.setMarketCap(rs.getDouble("marketCap"));
-        coin.setDaily_vol(rs.getDouble("dailyVol"));
-        coin.setCirculatingSupply(rs.getDouble("circulatingSupply"));
-        return coin;
+        Coin coin1 = new Coin();
+        coin1.setIdCoin(rs.getLong("id_coin"));
+        coin1.setSymbol(rs.getString("symbol"));
+        coin1.setNameCoin(rs.getString("name_coin"));
+        coin1.setIcon(rs.getString("icon"));
+        coin1.setPrice(rs.getDouble("price"));
+        coin1.setDailyVariation(rs.getDouble("daily_variation"));
+        coin1.setWeeklyVariation(rs.getDouble("weekly_variation"));
+        coin1.setMarketCap(rs.getDouble("market_cap"));
+        coin1.setDaily_vol(rs.getDouble("daily_vol"));
+        coin1.setCirculatingSupply(rs.getDouble("circulating_supply"));
+        return coin1;
     }
+
+
+
+
+
 
 }
 
@@ -47,24 +54,21 @@ public class CoinRepository {
 
     public List<Coin> findBySymbol(String symbol){
         return template.query(
-                "SELECT symbol, name_coin, icon FROM tbl_coins WHERE symbol=?",
-             new CoinRowMapper(), symbol
+                "SELECT * FROM tbl_coins WHERE symbol=?",
+              new CoinRowMapper(), symbol
         );
     }
 
     public Coin mapRow(final ResultSet rs) throws SQLException {
         Coin coin = new Coin();
+        // coin.setIdCoin(rs.getLong("id_coin"));
         coin.setSymbol(rs.getString("symbol"));
-        coin.setNameCoin(rs.getString("nameCoin"));
+        coin.setNameCoin(rs.getString("name_coin"));
         coin.setIcon(rs.getString("icon"));
-        coin.setPrice(rs.getDouble("price"));
-        coin.setDailyVariation(rs.getDouble("dailyVariation"));
-        coin.setWeeklyVariation(rs.getDouble("weeklyVariation"));
-        coin.setMarketCap(rs.getDouble("marketCap"));
-        coin.setDaily_vol(rs.getDouble("dailyVol"));
-        coin.setCirculatingSupply(rs.getDouble("circulatingSupply"));
+
         return coin;
     }
+
 
     public List<Coin> findAll(Sort sort) {
 
@@ -76,14 +80,16 @@ public class CoinRepository {
 
 
     public int count() {
-        return template.queryForObject("SELECT count(*) FROM USER", Integer.class);
+        return template.queryForObject("SELECT count(*) FROM tbl_coins", Integer.class);
     }
 
-    public Page<Coin> findAllPag(Pageable page) {
+    public Page<Coin> findAllPage(Pageable page) {
         Sort.Order order = !page.getSort().isEmpty() ? page.getSort().toList().get(0) : Sort.Order.by("symbol");
         List<Coin> coins = template.query("SELECT * FROM tbl_coins ORDER BY " + order.getProperty() + " "
                         + order.getDirection().name() + " LIMIT " + page.getPageSize() + " OFFSET " + page.getOffset(),
                 (rs, rowNum) -> mapRow(rs));
         return new PageImpl<Coin>(coins, page, count());
     }
+
+
 }
