@@ -36,7 +36,7 @@ public class CoinHistoryRepository {
     
     public void createHistoryCoin (CoinHistory coinHistory) {
     	
-    	template.update("INSERT INTO tbl_coin_histories(symbol,id_coin,high,low,close_price,volume,market_cap values(?,?,?,?,?,?,?,?)",
+    	template.update("INSERT INTO tbl_coin_histories (symbol,id_coin,high,low,close_price,volume,market_cap) values(?,?,?,?,?,?,?)",
     			coinHistory.getSymbol(),coinHistory.getIdCoin(),coinHistory.getHigh(),coinHistory.getLow(),coinHistory.getClosePrice(),coinHistory.getVolume(),coinHistory.getMarketCap());
     	
     	
