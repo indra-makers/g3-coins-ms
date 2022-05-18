@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CategoryController {
 
-    @Autowired
-    CategoryService categoryService;
+   @Autowired
+   CategoryService categoryService;
 
 }

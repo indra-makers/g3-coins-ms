@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(Routes.COINS_PATH)
 public class CoinHistoryController {
 
-	@Autowired
-	CoinHistoryService coinHistoryService;
+   @Autowired
+   CoinHistoryService coinHistoryService;
 
-	// Creacion de historial de una moneda por medio del Id Coin
-	@PostMapping(Routes.COINS_HISTORY_BY_ID_COIN)
-	public void registerHistoryCoin(@RequestBody CoinHistoryRequest request, @PathVariable("idCoin") Long idCoin) {
+   // Creacion de historial de una moneda por medio del Id Coin
+   @PostMapping(Routes.COINS_HISTORY_BY_ID_COIN)
+   public void registerHistoryCoin(@RequestBody CoinHistoryRequest request, @PathVariable("idCoin") Long idCoin) {
 
-		coinHistoryService.registerHistoryCoin(request.getSymbol(), idCoin, request.getHigh(), request.getLow(),
-				request.getClosePrice(), request.getVolume(), request.getMarketCap());
+      coinHistoryService.registerHistoryCoin(request.getSymbol(), idCoin, request.getHigh(), request.getLow(),
+            request.getClosePrice(), request.getVolume(), request.getMarketCap());
 
-	}
+   }
 
-	@GetMapping("/CoinHistory")
-	public Page<CoinHistory> getAllCoinsPaged(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+   @GetMapping("/CoinHistory")
+   public Page<CoinHistory> getAllCoinsPaged(@PageableDefault(page = 0, size = 10) Pageable pageable) {
 
-		return (Page<CoinHistory>) coinHistoryService.findAllCoinsHistoryPage((Pageable) pageable);
-	}
+      return (Page<CoinHistory>) coinHistoryService.findAllCoinsHistoryPage((Pageable) pageable);
+   }
 
 }

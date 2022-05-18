@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CoinCategoryController {
 
-    @Autowired
-    CoinCategoryService coinCategoryService;
+   @Autowired
+   CoinCategoryService coinCategoryService;
 
 }

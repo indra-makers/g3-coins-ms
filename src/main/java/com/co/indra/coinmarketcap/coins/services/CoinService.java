@@ -14,21 +14,20 @@ import java.util.List;
 @Service
 public class CoinService {
 
-    @Autowired
-    CoinRepository coinRepository;
+   @Autowired
+   CoinRepository coinRepository;
 
-    public void createBasicCoin(Coin coin){
-        if(coinRepository.findBySymbol(coin.getSymbol()).isEmpty()){
-            coinRepository.createBasicCoin(coin);
-        }
-        else{
-            throw new BusinessException(ErrorCodes.COIN_WITH_SYMBOL_EXISTS);
-        }
-    }
+   public void createBasicCoin(Coin coin) {
+      if (coinRepository.findBySymbol(coin.getSymbol()).isEmpty()) {
+         coinRepository.createBasicCoin(coin);
+      } else {
+         throw new BusinessException(ErrorCodes.COIN_WITH_SYMBOL_EXISTS);
+      }
+   }
 
-    public Page<Coin> findPagedCoins(Pageable pageable){
-        Page<Coin> coin= coinRepository.findAllPage(pageable);
-        return coin;
-    }
+   public Page<Coin> findPagedCoins(Pageable pageable) {
+      Page<Coin> coin = coinRepository.findAllPage(pageable);
+      return coin;
+   }
 
 }

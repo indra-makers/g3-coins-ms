@@ -11,21 +11,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class CoinHistoryService {
 
-	@Autowired
-	CoinHistoryRepository coinHistoryRepository;
+   @Autowired
+   CoinHistoryRepository coinHistoryRepository;
 
-	public void registerHistoryCoin(String symbol, Long idCoin, Double high, Double low, Double closePrice,
-			Double volume, Double marketCap) {
+   public void registerHistoryCoin(String symbol, Long idCoin, Double high, Double low, Double closePrice,
+         Double volume, Double marketCap) {
 
-		coinHistoryRepository
-				.createHistoryCoin(new CoinHistory(symbol, idCoin, high, low, closePrice, volume, marketCap));
+      coinHistoryRepository
+            .createHistoryCoin(new CoinHistory(symbol, idCoin, high, low, closePrice, volume, marketCap));
 
-	}
+   }
 
-	public Page<CoinHistory> findAllCoinsHistoryPage(Pageable pageable) {
+   public Page<CoinHistory> findAllCoinsHistoryPage(Pageable pageable) {
 
-		Page<CoinHistory> coinHistory = coinHistoryRepository.findAllCoinsHistoryPage(pageable);
-		return coinHistory;
-	}
+      Page<CoinHistory> coinHistory = coinHistoryRepository.findAllCoinsHistoryPage(pageable);
+      return coinHistory;
+   }
 
 }
