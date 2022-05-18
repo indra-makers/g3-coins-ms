@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CoinCategoryService {
 
-    @Autowired
-    CoinCategoryRepository coinCategoryRepository;
+   @Autowired
+   CoinCategoryRepository coinCategoryRepository;
 
 }

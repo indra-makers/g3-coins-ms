@@ -3,25 +3,25 @@ create table public.tbl_coins(
     symbol varchar(3) NOT NULL UNIQUE,
     name_coin varchar(10) NOT NULL,
     icon varchar(255) NOT NULL,
-    price decimal(20,5),
-    daily_variation decimal(2,2),
-    weekly_variation decimal(2,2),
-    market_cap decimal(20,5),
-    daily_vol decimal(20,5),
-    circulating_supply decimal(20,5),
+    price double precision ,
+    daily_variation double precision ,
+    weekly_variation double precision ,
+    market_cap double precision ,
+    daily_vol double precision ,
+    circulating_supply double precision ,
     PRIMARY KEY(id_coin, symbol)
 );
 
 create table public.tbl_coin_histories(
     id_history serial primary key,
     symbol varchar(3) NOT NULL,
-    id_coin int NOT NULL,
-    date_reg timestamp,
-    high decimal(2,2),
-    low decimal(2,2),
-    close_price decimal(20,5),
-    volume decimal(20,5),
-    market_cap decimal(20,5),
+    id_coin serial NOT NULL,
+    "date_reg" timestamp NOT NULL DEFAULT now(),
+    high double precision ,
+    low double precision ,
+    close_price double precision ,
+    volume double precision ,
+    market_cap double precision ,
     foreign key(symbol, id_coin) references tbl_coins(symbol, id_coin)
 );
 

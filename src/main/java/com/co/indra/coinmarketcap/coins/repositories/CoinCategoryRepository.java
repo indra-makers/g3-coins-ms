@@ -10,22 +10,21 @@ import java.sql.SQLException;
 
 class CoinCategoryRowMapper implements RowMapper<CoinCategory> {
 
-    @Override
-    public CoinCategory mapRow(ResultSet rs, int rowNum) throws SQLException {
-        CoinCategory coinCategory = new CoinCategory();
-        coinCategory.setId(rs.getLong("id_coin_category"));
-        coinCategory.setIdCategory(rs.getLong("id_category"));
-        coinCategory.setSymbol(rs.getString("symbol"));
-        return coinCategory;
-    }
+   @Override
+   public CoinCategory mapRow(ResultSet rs, int rowNum) throws SQLException {
+      CoinCategory coinCategory = new CoinCategory();
+      coinCategory.setId(rs.getLong("id_coin_category"));
+      coinCategory.setIdCategory(rs.getLong("id_category"));
+      coinCategory.setSymbol(rs.getString("symbol"));
+      return coinCategory;
+   }
 
 }
 
 @Repository
 public class CoinCategoryRepository {
 
-    @Autowired
-    private JdbcTemplate template;
-
+   @Autowired
+   private JdbcTemplate template;
 
 }

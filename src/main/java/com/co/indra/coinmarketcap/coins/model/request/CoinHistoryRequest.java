@@ -1,19 +1,11 @@
-package com.co.indra.coinmarketcap.coins.model.entities;
+package com.co.indra.coinmarketcap.coins.model.request;
 
 import javax.validation.constraints.Pattern;
-import java.io.Serializable;
-import java.util.Date;
 
-public class CoinHistory implements Serializable {
-
-   private Long idHistory;
+public class CoinHistoryRequest {
 
    @Pattern(regexp = "[A-Z]{3}")
    private String symbol;
-
-   private Long idCoin;
-
-   private Date dateReg;
 
    private Double high;
 
@@ -25,27 +17,8 @@ public class CoinHistory implements Serializable {
 
    private Double marketCap;
 
-   public CoinHistory() {
-   }
+   public CoinHistoryRequest() {
 
-   public CoinHistory(String symbol, Long idCoin, Double high, Double low, Double closePrice, Double volume,
-         Double marketCap) {
-      super();
-      this.symbol = symbol;
-      this.idCoin = idCoin;
-      this.high = high;
-      this.low = low;
-      this.closePrice = closePrice;
-      this.volume = volume;
-      this.marketCap = marketCap;
-   }
-
-   public Long getIdHistory() {
-      return idHistory;
-   }
-
-   public void setIdHistory(Long idHistory) {
-      this.idHistory = idHistory;
    }
 
    public String getSymbol() {
@@ -54,22 +27,6 @@ public class CoinHistory implements Serializable {
 
    public void setSymbol(String symbol) {
       this.symbol = symbol;
-   }
-
-   public Long getIdCoin() {
-      return idCoin;
-   }
-
-   public void setIdCoin(Long idCoin) {
-      this.idCoin = idCoin;
-   }
-
-   public Date getDateReg() {
-      return dateReg;
-   }
-
-   public void setDateReg(Date dateReg) {
-      this.dateReg = dateReg;
    }
 
    public Double getHigh() {

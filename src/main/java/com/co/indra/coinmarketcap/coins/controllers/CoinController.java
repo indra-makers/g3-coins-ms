@@ -16,24 +16,25 @@ import java.awt.print.Pageable;
 @RequestMapping(Routes.COINS_PATH)
 public class CoinController {
 
-    @Autowired
-    CoinService coinService;
+   @Autowired
+   CoinService coinService;
 
-    @Autowired
-    CoinRepository coinRepository;
+   @Autowired
+   CoinRepository coinRepository;
 
-    @PostMapping
-    public void createBasicCoin(@Valid @RequestBody Coin coin){coinService.createBasicCoin(coin);}
+   @PostMapping
+   public void createBasicCoin(@Valid @RequestBody Coin coin) {
+      coinService.createBasicCoin(coin);
+   }
 
-    @GetMapping(path = "/coins")
-    public Page<Coin> loadCoinsPage(Pageable pageable){
-        return coinRepository.findAllPage((org.springframework.data.domain.Pageable) pageable);
-    }
+   @GetMapping(path = "/coins")
+   public Page<Coin> loadCoinsPage(Pageable pageable) {
+      return coinRepository.findAllPage((org.springframework.data.domain.Pageable) pageable);
+   }
 
-    @GetMapping
-    public Page<Coin> getCoinsPaged(@PageableDefault(page = 1, size = 2) Pageable pageable){
-        return (Page<Coin>) coinService.findPagedCoins((org.springframework.data.domain.Pageable) pageable);
-    }
-
+   @GetMapping
+   public Page<Coin> getCoinsPaged(@PageableDefault(page = 1, size = 2) Pageable pageable) {
+      return (Page<Coin>) coinService.findPagedCoins((org.springframework.data.domain.Pageable) pageable);
+   }
 
 }

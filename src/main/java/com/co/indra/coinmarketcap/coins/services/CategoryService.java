@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryService {
 
-    @Autowired
-    CategoryRepository categoryRepository;
+   @Autowired
+   CategoryRepository categoryRepository;
 
 }
