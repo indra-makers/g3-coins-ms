@@ -47,6 +47,18 @@ public class CoinRepository {
             coin.getNameCoin(), coin.getIcon());
    }
 
+   public void createCoinTest() {
+      template.update(
+            "INSERT INTO tbl_coins (id_coin,symbol,name_coin,icon,price,daily_variation,weekly_variation,market_cap,daily_vol,circulating_supply) values(?,?,?,?,?,?,?,?,?,?)",
+            187, "TPU", "PruebaCoin", "ICON", 7458, 8965, 4125, 6657, 69841, 2254);
+   }
+
+   public void deleteCoinTest(String symbol) {
+
+      template.update("DELETE FROM tbl_coins WHERE symbol = ?", symbol);
+
+   }
+
    public List<Coin> findBySymbol(String symbol) {
       return template.query("SELECT * FROM tbl_coins WHERE symbol=?", new CoinRowMapper(), symbol);
    }
