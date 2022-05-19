@@ -77,4 +77,18 @@ public class CoinHistoryRepository {
       return new PageImpl<CoinHistory>(coinsHistory, pageable, count());
    }
 
+   public List<CoinHistory> findBySymbol(String symbol) {
+
+      return template.query(
+            "SELECT id_history,symbol,id_coin,date_reg,high,low,close_price,volume,market_cap FROM tbl_coin_histories WHERE symbol =?",
+            new CoinHistoryRowMapper(), symbol);
+
+   }
+
+   public void deleteCoinHistoryBySymbol(String symbol) {
+
+      template.update("DELETE FROM tbl_coin_histories WHERE symbol = ?", symbol);
+
+   }
+
 }
