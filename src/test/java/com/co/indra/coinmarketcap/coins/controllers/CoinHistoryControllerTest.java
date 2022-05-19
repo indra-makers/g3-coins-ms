@@ -2,6 +2,8 @@ package com.co.indra.coinmarketcap.coins.controllers;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +11,18 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import com.co.indra.coinmarketcap.coins.model.entities.CoinHistory;
 import com.co.indra.coinmarketcap.coins.repositories.CoinHistoryRepository;
-import com.co.indra.coinmarketcap.coins.repositories.CoinRepository;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
+
 public class CoinHistoryControllerTest {
 
    @Autowired
@@ -27,14 +31,13 @@ public class CoinHistoryControllerTest {
    @Autowired
    private CoinHistoryRepository coinHistoryRepository;
 
-   @Autowired
-   private CoinRepository coinRepository;
+  
 
    @Test
+   @Sql("/testdata/createCoinIntoTbl_Coins.sql")
    public void registerHistoryCoin() throws Exception {
 
-      // Se crea una moneda en base de datos para realizar el test
-      coinRepository.createCoinTest();
+ 
 
       MockHttpServletRequestBuilder requestCoinHistory = MockMvcRequestBuilders.post("/coins/187/CoinHistory")
             .content("{\r\n" + "\r\n" + "    \"symbol\": \"TPU\",\r\n" + "    \"high\": 25636,\r\n"
@@ -53,10 +56,36 @@ public class CoinHistoryControllerTest {
       Assertions.assertEquals("TPU", coinHistoryToAssert.getSymbol());
       Assertions.assertEquals(187, coinHistoryToAssert.getIdCoin());
 
-      coinHistoryRepository.deleteCoinHistoryBySymbol("TPU");
-
-      coinRepository.deleteCoinTest("TPU");
+     
 
    }
+   
+   @Test
+   @Sql("/testdata/createCoinIntoTbl_Coins.sql")
+   @Sql("/testdata/createHistoryCoinIntoTbl_coin_histories.sql")
+   public void getAllCoinsPaged() throws Exception{
+      
+      MockHttpServletRequestBuilder requestCoinPaged = MockMvcRequestBuilders.get("/coins/CoinHistory?page=0&size=10")
+            .contentType(MediaType.APPLICATION_JSON);
+            
+      MockHttpServletResponse responseCoinPaged = mockMvc.perform(requestCoinPaged).andReturn().getResponse();
+      Assertions.assertEquals(200, responseCoinPaged.getStatus());
+      
+      
+      List<CoinHistory> coinHistoryList = coinHistoryRepository.findBySymbol("BTC");
+      Assertions.assertEquals(3, coinHistoryList.size());
+
+      CoinHistory coinHistoryToAssert = coinHistoryList.get(0);
+
+      Assertions.assertEquals("BTC", coinHistoryToAssert.getSymbol());
+      Assertions.assertEquals(2, coinHistoryToAssert.getIdCoin());
+      
+      
+   }
+   
+   
+   
+   
+   
 
 }

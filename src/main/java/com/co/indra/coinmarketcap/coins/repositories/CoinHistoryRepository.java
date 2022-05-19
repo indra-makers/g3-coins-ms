@@ -85,10 +85,6 @@ public class CoinHistoryRepository {
 
    }
 
-   public void deleteCoinHistoryBySymbol(String symbol) {
 
-      template.update("DELETE FROM tbl_coin_histories WHERE symbol = ?", symbol);
-
-   }
 
 }
