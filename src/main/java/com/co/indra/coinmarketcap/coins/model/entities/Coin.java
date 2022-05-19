@@ -29,6 +29,7 @@ public class Coin implements Serializable {
    public Coin() {
    }
 
+   
    public Coin(String symbol, String nameCoin, String icon) {
       this.symbol = symbol;
       this.nameCoin = nameCoin;
@@ -49,6 +50,8 @@ public class Coin implements Serializable {
       this.circulatingSupply = circulatingSupply;
    }
 
+
+   
    public Long getIdCoin() {
       return idCoin;
    }
