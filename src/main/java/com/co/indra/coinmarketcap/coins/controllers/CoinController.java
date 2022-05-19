@@ -27,12 +27,12 @@ public class CoinController {
       coinService.createBasicCoin(coin);
    }
 
-   @GetMapping(path = "/coins")
-   public Page<Coin> loadCoinsPage(Pageable pageable) {
-      return coinRepository.findAllPage((org.springframework.data.domain.Pageable) pageable);
-   }
 
-   @GetMapping
+  /* public Page<Coin> loadCoinsPage(Pageable pageable) {
+      return coinRepository.findAllPage((org.springframework.data.domain.Pageable) pageable);
+   }*/
+
+   @GetMapping(Routes.COINS_BASIC_PATH)
    public Page<Coin> getCoinsPaged(@PageableDefault(page = 1, size = 2) Pageable pageable) {
       return (Page<Coin>) coinService.findPagedCoins((org.springframework.data.domain.Pageable) pageable);
    }
