@@ -1,7 +1,9 @@
 package com.co.indra.coinmarketcap.coins.controllers;
 
+
 import com.co.indra.coinmarketcap.coins.config.Routes;
 import com.co.indra.coinmarketcap.coins.model.entities.Coin;
+import com.co.indra.coinmarketcap.coins.model.responses.ErrorResponse;
 import com.co.indra.coinmarketcap.coins.repositories.CoinRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -25,33 +27,66 @@ import java.util.List;
 @Transactional
 public class CoinControllerTest {
 
-   @Autowired
-   private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-   @Autowired
-   private CoinRepository coinRepository;
+    @Autowired
+    private CoinRepository coinRepository;
 
-   @Autowired
-   private ObjectMapper objectMapper;
+    @Autowired
+    private ObjectMapper objectMapper;
 
-   @Autowired
-   private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-   @Test
-   public void createBasicCoinHappyPath() throws Exception {
-      MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(Routes.COINS_PATH).content("{\n"
-            + "    \"symbol\": \"BTC\",\n" + "    \"nameCoin\": \"BIT COIN\",\n" + "    \"icon\": \"N/A\" \n" + "}")
-            .contentType(MediaType.APPLICATION_JSON);
 
-      MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
-      Assertions.assertEquals(200, response.getStatus());
+    @Test
+    public void createBasicCoinHappyPath() throws Exception {
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .post(Routes.COINS_PATH)
+                .content("{\n" +
+                        "    \"symbol\": \"BIC\",\n" +
+                        "    \"nameCoin\": \"BIC COIN\",\n" +
+                        "    \"icon\": \"N/A\" \n" +
+                        "}").contentType(MediaType.APPLICATION_JSON);
 
-      List<Coin> coins = coinRepository.findBySymbol("BTC");
-      Assertions.assertEquals(1, coins.size());
+        MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
+        Assertions.assertEquals(200, response.getStatus());
 
-      Coin CoinToAssert = coins.get(0);
+        List<Coin> coins = coinRepository.findBySymbol("BIC");
+        Assertions.assertEquals(1, coins.size());
 
-      Assertions.assertEquals("BIT COIN", CoinToAssert.getNameCoin());
-      Assertions.assertEquals("N/A", CoinToAssert.getIcon());
-   }
+        Coin CoinToAssert = coins.get(0);
+
+        Assertions.assertEquals("BIC COIN", CoinToAssert.getNameCoin());
+        Assertions.assertEquals("N/A", CoinToAssert.getIcon());
+    }
+
+    @Test
+    @Sql("/testdata/createCoinAlreadyExists.sql")
+    public void createCoinThatAlreadyExist() throws Exception {
+
+
+        //----la ejecucion de la prueba misma--------------
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .post(Routes.COINS_PATH)
+                .content("{\n" +
+                        "    \"symbol\": \"BIC\",\n" +
+                        "    \"nameCoin\": \"BIC COIN\",\n" +
+                        "    \"icon\": \"N/A\" \n" +
+                        "}").contentType(MediaType.APPLICATION_JSON);
+
+        MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
+
+        Assertions.assertEquals(412, response.getStatus());
+
+        String textResponse = response.getContentAsString();
+        ErrorResponse error = objectMapper.readValue(textResponse, ErrorResponse.class);
+
+        Assertions.assertEquals("001", error.getCode());
+        Assertions.assertEquals("Coin with that symbol already exists", error.getMessage());
+    }
+
+
+
 }
