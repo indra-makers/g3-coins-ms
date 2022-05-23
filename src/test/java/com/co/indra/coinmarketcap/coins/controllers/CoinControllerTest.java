@@ -1,6 +1,5 @@
 package com.co.indra.coinmarketcap.coins.controllers;
 
-
 import com.co.indra.coinmarketcap.coins.config.Routes;
 import com.co.indra.coinmarketcap.coins.model.entities.Coin;
 import com.co.indra.coinmarketcap.coins.repositories.CoinRepository;
@@ -26,38 +25,33 @@ import java.util.List;
 @Transactional
 public class CoinControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+   @Autowired
+   private MockMvc mockMvc;
 
-    @Autowired
-    private CoinRepository coinRepository;
+   @Autowired
+   private CoinRepository coinRepository;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+   @Autowired
+   private ObjectMapper objectMapper;
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+   @Autowired
+   private JdbcTemplate jdbcTemplate;
 
+   @Test
+   public void createBasicCoinHappyPath() throws Exception {
+      MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(Routes.COINS_PATH).content("{\n"
+            + "    \"symbol\": \"BTC\",\n" + "    \"nameCoin\": \"BIT COIN\",\n" + "    \"icon\": \"N/A\" \n" + "}")
+            .contentType(MediaType.APPLICATION_JSON);
 
-    @Test
-    public void createBasicCoinHappyPath() throws Exception {
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .post(Routes.COINS_PATH)
-                .content("{\n" +
-                        "    \"symbol\": \"BTC\",\n" +
-                        "    \"nameCoin\": \"BIT COIN\",\n" +
-                        "    \"icon\": \"N/A\" \n" +
-                        "}").contentType(MediaType.APPLICATION_JSON);
+      MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
+      Assertions.assertEquals(200, response.getStatus());
 
-        MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
-        Assertions.assertEquals(200, response.getStatus());
+      List<Coin> coins = coinRepository.findBySymbol("BTC");
+      Assertions.assertEquals(1, coins.size());
 
-        List<Coin> coins = coinRepository.findBySymbol("BTC");
-        Assertions.assertEquals(1, coins.size());
+      Coin CoinToAssert = coins.get(0);
 
-        Coin CoinToAssert = coins.get(0);
-
-        Assertions.assertEquals("BIT COIN", CoinToAssert.getNameCoin());
-        Assertions.assertEquals("N/A", CoinToAssert.getIcon());
-    }
+      Assertions.assertEquals("BIT COIN", CoinToAssert.getNameCoin());
+      Assertions.assertEquals("N/A", CoinToAssert.getIcon());
+   }
 }

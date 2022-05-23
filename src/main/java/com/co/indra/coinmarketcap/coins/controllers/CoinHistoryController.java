@@ -27,14 +27,15 @@ public class CoinHistoryController {
 
    // Creacion de historial de una moneda por medio del Id Coin
    @PostMapping(Routes.COINS_HISTORY_BY_ID_COIN)
-   public void registerHistoryCoin(@Valid @RequestBody CoinHistoryRequest request, @PathVariable("idCoin") Long idCoin) {
+   public void registerHistoryCoin(@Valid @RequestBody CoinHistoryRequest request,
+         @PathVariable("idCoin") Long idCoin) {
 
       coinHistoryService.registerHistoryCoin(request.getSymbol(), idCoin, request.getHigh(), request.getLow(),
             request.getClosePrice(), request.getVolume(), request.getMarketCap());
 
    }
 
-   @GetMapping("/CoinHistory")
+   @GetMapping(Routes.COINS_HISTORY)
    public Page<CoinHistory> getAllCoinsPaged(@PageableDefault(page = 0, size = 10) Pageable pageable) {
 
       return (Page<CoinHistory>) coinHistoryService.findAllCoinsHistoryPage((Pageable) pageable);

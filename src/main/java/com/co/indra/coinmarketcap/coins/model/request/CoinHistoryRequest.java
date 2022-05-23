@@ -4,7 +4,6 @@ import javax.validation.constraints.Pattern;
 
 public class CoinHistoryRequest {
 
-   
    @Pattern(regexp = "[A-Z]{3}")
    private String symbol;
 
@@ -69,9 +68,5 @@ public class CoinHistoryRequest {
    public void setMarketCap(Double marketCap) {
       this.marketCap = marketCap;
    }
-
-
-
-   
 
 }

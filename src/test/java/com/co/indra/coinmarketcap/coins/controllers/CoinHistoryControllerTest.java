@@ -13,7 +13,10 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import com.co.indra.coinmarketcap.coins.config.Routes;
 import com.co.indra.coinmarketcap.coins.model.entities.CoinHistory;
+import com.co.indra.coinmarketcap.coins.model.responses.ErrorResponse;
 import com.co.indra.coinmarketcap.coins.repositories.CoinHistoryRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -38,7 +41,8 @@ public class CoinHistoryControllerTest {
    @Sql("/testdata/createCoinIntoTbl_Coins.sql")
    public void registerHistoryCoinHappyPath() throws Exception {
 
-      MockHttpServletRequestBuilder requestCoinHistory = MockMvcRequestBuilders.post("/coins/187/CoinHistory")
+      MockHttpServletRequestBuilder requestCoinHistory = MockMvcRequestBuilders
+            .post(Routes.COINS_PATH + Routes.COINS_HISTORY_BY_ID_COIN, 187)
             .content("{\r\n" + "\r\n" + "    \"symbol\": \"TPU\",\r\n" + "    \"high\": 1478,\r\n"
                   + "    \"low\": 7485,\r\n" + "    \"closePrice\": 1236,\r\n" + "    \"volume\": 5564,\r\n"
                   + "    \"marketCap\":4412\r\n" + "\r\n" + "}")
@@ -63,14 +67,23 @@ public class CoinHistoryControllerTest {
    @Sql("/testdata/createHistoryCoinIntoTbl_coin_histories.sql")
    public void registerHistoryCoinAlreadyExist() throws Exception {
 
-      MockHttpServletRequestBuilder requestCoinHistory = MockMvcRequestBuilders.post("/coins/187/CoinHistory")
+      MockHttpServletRequestBuilder requestCoinHistory = MockMvcRequestBuilders
+            .post(Routes.COINS_PATH + Routes.COINS_HISTORY_BY_ID_COIN, 187)
             .content("{\r\n" + "\r\n" + "    \"symbol\": \"TPU\",\r\n" + "    \"high\": 1478,\r\n"
                   + "    \"low\": 7485,\r\n" + "    \"closePrice\": 1236,\r\n" + "    \"volume\": 5564,\r\n"
                   + "    \"marketCap\":4412\r\n" + "\r\n" + "}")
             .contentType(MediaType.APPLICATION_JSON);
 
       MockHttpServletResponse responseCoinHistory = mockMvc.perform(requestCoinHistory).andReturn().getResponse();
-      Assertions.assertEquals(500, responseCoinHistory.getStatus());
+      Assertions.assertEquals(412, responseCoinHistory.getStatus());
+
+      String textResponseCoinHistory = responseCoinHistory.getContentAsString();
+
+      ErrorResponse error = objectMapper.readValue(textResponseCoinHistory, ErrorResponse.class);
+      Assertions.assertEquals("007", error.getCode());
+      Assertions.assertEquals(
+            "You are currently finding a currency history record equal to the one you are trying to enter",
+            error.getMessage());
 
    }
 
@@ -79,7 +92,8 @@ public class CoinHistoryControllerTest {
    @Sql("/testdata/createCoinIntoTbl_Coins.sql")
    public void registerHistoryCoinWithBadParams() throws Exception {
 
-      MockHttpServletRequestBuilder requestCoinHistory = MockMvcRequestBuilders.post("/coins/187/CoinHistory")
+      MockHttpServletRequestBuilder requestCoinHistory = MockMvcRequestBuilders
+            .post(Routes.COINS_PATH + Routes.COINS_HISTORY_BY_ID_COIN, 187)
             .content("{\r\n" + "\r\n" + "    \"symbol\": \"tpu\",\r\n" + "    \"high\": 1478,\r\n"
                   + "    \"low\": 7485,\r\n" + "    \"closePrice\": 1236,\r\n" + "    \"volume\": 5564,\r\n"
                   + "    \"marketCap\":4412\r\n" + "\r\n" + "}")
@@ -87,6 +101,33 @@ public class CoinHistoryControllerTest {
 
       MockHttpServletResponse responseCoinHistory = mockMvc.perform(requestCoinHistory).andReturn().getResponse();
       Assertions.assertEquals(400, responseCoinHistory.getStatus());
+
+      String textResponseCoinHistory = responseCoinHistory.getContentAsString();
+
+      ErrorResponse error = objectMapper.readValue(textResponseCoinHistory, ErrorResponse.class);
+      Assertions.assertEquals("BAD_PARAMETERS", error.getCode());
+   }
+
+   @Test // Test de creacion de historial cuando la moneda no
+         // existe (el ID de la moneda o el Simbolo no existe)
+   @Sql("/testdata/createCoinIntoTbl_Coins.sql")
+   public void registerHistoryCoinWhenIdCoinOrSymbolNotExist() throws Exception {
+
+      MockHttpServletRequestBuilder requestCoinHistory = MockMvcRequestBuilders
+            .post(Routes.COINS_PATH + Routes.COINS_HISTORY_BY_ID_COIN, 188)
+            .content("{\r\n" + "\r\n" + "    \"symbol\": \"TUR\",\r\n" + "    \"high\": 1478,\r\n"
+                  + "    \"low\": 7485,\r\n" + "    \"closePrice\": 1236,\r\n" + "    \"volume\": 5564,\r\n"
+                  + "    \"marketCap\":4412\r\n" + "\r\n" + "}")
+            .contentType(MediaType.APPLICATION_JSON);
+
+      MockHttpServletResponse responseCoinHistory = mockMvc.perform(requestCoinHistory).andReturn().getResponse();
+      Assertions.assertEquals(404, responseCoinHistory.getStatus());
+
+      String textResponseCoinHistory = responseCoinHistory.getContentAsString();
+
+      ErrorResponse error = objectMapper.readValue(textResponseCoinHistory, ErrorResponse.class);
+      Assertions.assertEquals("NOT_FOUND", error.getCode());
+      Assertions.assertEquals("Coin not found", error.getMessage());
 
    }
 
