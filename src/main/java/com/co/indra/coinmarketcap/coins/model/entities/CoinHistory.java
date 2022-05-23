@@ -1,6 +1,9 @@
 package com.co.indra.coinmarketcap.coins.model.entities;
 
 import javax.validation.constraints.Pattern;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,7 +15,7 @@ public class CoinHistory implements Serializable {
    private String symbol;
 
    private Long idCoin;
-
+   
    private Date dateReg;
 
    private Double high;
@@ -31,6 +34,7 @@ public class CoinHistory implements Serializable {
    public CoinHistory(String symbol, Long idCoin, Double high, Double low, Double closePrice, Double volume,
          Double marketCap) {
       super();
+      
       this.symbol = symbol;
       this.idCoin = idCoin;
       this.high = high;
@@ -39,7 +43,25 @@ public class CoinHistory implements Serializable {
       this.volume = volume;
       this.marketCap = marketCap;
    }
+   
+   
+   
 
+   public CoinHistory(Long idHistory,String symbol, Long idCoin, Date dateReg,
+         Double high, Double low, Double closePrice, Double volume, Double marketCap) {
+      super();
+      this.idHistory = idHistory;
+      this.symbol = symbol;
+      this.idCoin = idCoin;
+      this.dateReg = dateReg;
+      this.high = high;
+      this.low = low;
+      this.closePrice = closePrice;
+      this.volume = volume;
+      this.marketCap = marketCap;
+   }
+
+   
    public Long getIdHistory() {
       return idHistory;
    }
