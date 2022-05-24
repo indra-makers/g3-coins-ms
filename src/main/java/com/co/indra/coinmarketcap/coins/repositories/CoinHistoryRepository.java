@@ -67,8 +67,7 @@ public class CoinHistoryRepository {
    }
 
    public Page<CoinHistory> findAllCoinsHistoryPage(Pageable pageable) {
-      Sort.Order order = !pageable.getSort().isEmpty() ? pageable.getSort().toList().get(0)
-            : Sort.Order.by("id_history");
+      Sort.Order order = !pageable.getSort().isEmpty() ? pageable.getSort().toList().get(0) : Sort.Order.by("date_reg");
       List<CoinHistory> coinsHistory = template.query(
             "SELECT id_history,symbol,id_coin,date_reg,high,low,close_price,volume,market_cap FROM tbl_coin_histories ORDER BY "
                   + order.getProperty() + " " + order.getDirection().name() + " LIMIT " + pageable.getPageSize()
@@ -85,6 +84,11 @@ public class CoinHistoryRepository {
 
    }
 
-
+   public List<CoinHistory> findByAllAttributes(String symbol, Long idCoin, Double high, Double low, Double closePrice,
+         Double volume, Double marketCap) {
+      return template.query(
+            "SELECT id_history,symbol,id_coin,date_reg,high,low,close_price,volume,market_cap FROM tbl_coin_histories WHERE symbol =? AND id_coin =? AND high =? AND low =? AND close_price =? AND volume =? AND market_cap =?",
+            new CoinHistoryRowMapper(), symbol, idCoin, high, low, closePrice, volume, marketCap);
+   }
 
 }

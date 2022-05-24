@@ -47,12 +47,12 @@ public class CoinRepository {
             coin.getNameCoin(), coin.getIcon());
    }
 
-
-
- 
-
    public List<Coin> findBySymbol(String symbol) {
       return template.query("SELECT * FROM tbl_coins WHERE symbol=?", new CoinRowMapper(), symbol);
+   }
+
+   public List<Coin> findByIdCoin(Long idCoin) {
+      return template.query("SELECT * FROM tbl_coins WHERE id_coin =?", new CoinRowMapper(), idCoin);
    }
 
    public Coin mapRow(final ResultSet rs) throws SQLException {

@@ -22,6 +22,8 @@ public class Routes {
 
    public static final String COINS_HISTORY_BY_ID_COIN = "/{idCoin}/CoinHistory";
 
+   public static final String COINS_HISTORY = "/CoinHistory";
+
    public static final String CATEGORY_PATH = "/category";
 
    public static final String CATEGORY_BY_ID = "/category/{id}";
