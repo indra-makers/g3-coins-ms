@@ -5,6 +5,7 @@ import com.co.indra.coinmarketcap.coins.config.Routes;
 import com.co.indra.coinmarketcap.coins.model.entities.Coin;
 import com.co.indra.coinmarketcap.coins.model.responses.ErrorResponse;
 import com.co.indra.coinmarketcap.coins.repositories.CoinRepository;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -87,5 +88,24 @@ public class CoinControllerTest {
         Assertions.assertEquals("Coin with that symbol already exists", error.getMessage());
     }
 
+    @Test
+    @Sql("/testdata/insertCoinsToPage.sql")
+    public void loadPageCoinHappyPath() throws Exception{
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get(Routes.COINS_PATH+Routes.COINS_BASIC_BY_ID+"?page=0&size=4")
+                .contentType(MediaType.APPLICATION_JSON);
+
+        MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
+
+        Assertions.assertEquals(200, response.getStatus());
+
+        JsonNode nodes = objectMapper.readTree(response.getContentAsString());
+
+        Coin[] data = objectMapper.readValue(nodes.get("content").toString(), Coin[].class);
+        Assertions.assertEquals(4, data.length);
+
+        Assertions.assertEquals(4, nodes.get("pageable").get("pageSize").asInt());
+        Assertions.assertEquals(0, nodes.get("pageable").get("pageNumber").asInt());
+    }
 
 }
