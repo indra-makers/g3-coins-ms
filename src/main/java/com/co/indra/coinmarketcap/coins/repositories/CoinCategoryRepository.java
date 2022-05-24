@@ -26,5 +26,9 @@ public class CoinCategoryRepository {
 
    @Autowired
    private JdbcTemplate template;
+   
+   public void createCoinCategory(CoinCategory coinCategory) {
+   	template.update("INSERT INTO tbl_coin_categories",coinCategory.getIdCategory(), coinCategory.getSymbol());
+   }
 
 }

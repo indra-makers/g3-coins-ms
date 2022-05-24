@@ -1,5 +1,6 @@
 package com.co.indra.coinmarketcap.coins.services;
 
+import com.co.indra.coinmarketcap.coins.model.entities.CoinCategory;
 import com.co.indra.coinmarketcap.coins.repositories.CoinCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,7 +8,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class CoinCategoryService {
 
-   @Autowired
-   CoinCategoryRepository coinCategoryRepository;
+	@Autowired
+	CoinCategoryRepository coinCategoryRepository;
+
+	public void create(CoinCategory coinCategory) {
+		coinCategoryRepository.createCoinCategory(coinCategory);
+
+	}
 
 }

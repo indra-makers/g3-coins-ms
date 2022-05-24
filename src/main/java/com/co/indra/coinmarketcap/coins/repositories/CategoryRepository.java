@@ -10,21 +10,26 @@ import java.sql.SQLException;
 
 class CategoryRowMapper implements RowMapper<Category> {
 
-   @Override
-   public Category mapRow(ResultSet rs, int rowNum) throws SQLException {
-      Category category = new Category();
-      category.setIdCategory(rs.getLong("id_category"));
-      category.setNameCategory(rs.getString("name_category"));
-      category.setDescription(rs.getString("description"));
-      return category;
-   }
+	@Override
+	public Category mapRow(ResultSet rs, int rowNum) throws SQLException {
+		Category category = new Category();
+		category.setIdCategory(rs.getLong("id_category"));
+		category.setNameCategory(rs.getString("name_category"));
+		category.setDescription(rs.getString("description"));
+		return category;
+	}
 
 }
 
 @Repository
 public class CategoryRepository {
 
-   @Autowired
-   private JdbcTemplate template;
+	@Autowired
+	private JdbcTemplate template;
+
+	public void createCategory(Category category) {
+		template.update("INSERT INTO tbl_categories(name_category,description) values(?,?)", category.getNameCategory(),
+				category.getDescription());
+	}
 
 }
