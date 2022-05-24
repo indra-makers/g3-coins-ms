@@ -86,13 +86,5 @@ public class CoinRepository {
       return new PageImpl<Coin>(coins, page, count());
    }
 
-  /* public Page<Coin> findAllCoinsPaged(Pageable pageable) {
-      Sort.Order order = !pageable.getSort().isEmpty() ? pageable.getSort().toList().get(0) : Sort.Order.by("id_symbolCoin");
-      List<Coin> coins = template.query("SELECT id_symbolCoin, nameCoin, iconCoin FROM tbl_coins ORDER BY "
-                      + order.getProperty() + " " + order.getDirection().name()
-                      + " LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset(),
-              (rs, rowNum) -> mapCoinResult(rs));
-      return new PageImpl<Coin>(coins, pageable, count());
-   }*/
 
 }
