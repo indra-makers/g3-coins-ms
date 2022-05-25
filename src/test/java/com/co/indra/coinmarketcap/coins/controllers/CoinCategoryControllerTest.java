@@ -35,7 +35,7 @@ public class CoinCategoryControllerTest {
 	public void getCoinByCategoryPageable() throws Exception {
 		// ----la ejecucion de la prueba misma--------------
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-				.get(Routes.COINS_CATEGORY_PATH + Routes.COIN_CATEGORY_BY_ID + "?page=0&size=2", 1)
+				.get(Routes.COINS_CATEGORY_PATH + Routes.COIN_CATEGORY_BY_ID + "?page=0&size=1", 1)
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
@@ -45,9 +45,9 @@ public class CoinCategoryControllerTest {
 		JsonNode nodes = objectMapper.readTree(response.getContentAsString());
 
 		CoinCategoryList[] data = objectMapper.readValue(nodes.get("content").toString(), CoinCategoryList[].class);
-		Assertions.assertEquals(2, data.length);
+		Assertions.assertEquals(1, data.length);
 
-		Assertions.assertEquals(2, nodes.get("pageable").get("pageSize").asInt());
+		Assertions.assertEquals(1, nodes.get("pageable").get("pageSize").asInt());
 		Assertions.assertEquals(0, nodes.get("pageable").get("pageNumber").asInt());
 
 	}
