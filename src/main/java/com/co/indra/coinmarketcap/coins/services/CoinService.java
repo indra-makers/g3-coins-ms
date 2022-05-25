@@ -2,6 +2,9 @@ package com.co.indra.coinmarketcap.coins.services;
 
 import com.co.indra.coinmarketcap.coins.config.ErrorCodes;
 import com.co.indra.coinmarketcap.coins.exceptions.BusinessException;
+import com.co.indra.coinmarketcap.coins.external_api.coincap.model.BodyResponseListCoinCap;
+import com.co.indra.coinmarketcap.coins.external_api.coincap.model.CoinCapModel;
+import com.co.indra.coinmarketcap.coins.external_api.coincap.repositoryRest.CoinCapRest;
 import com.co.indra.coinmarketcap.coins.model.entities.Coin;
 import com.co.indra.coinmarketcap.coins.repositories.CoinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ public class CoinService {
 
    @Autowired
    CoinRepository coinRepository;
+   @Autowired
+   CoinCapRest coinCapRest;
 
    public void createBasicCoin(Coin coin) {
       if (coinRepository.findBySymbol(coin.getSymbol()).isEmpty()) {
@@ -28,6 +33,13 @@ public class CoinService {
    public Page<Coin> findPagedCoins(Pageable pageable) {
       Page<Coin> coin = coinRepository.findAllPage(pageable);
       return coin;
+   }
+
+   public BodyResponseListCoinCap getCoinsExternal(){
+      return coinCapRest.getAllCoins();
+   }
+   public CoinCapModel getCoinBySymbolId(String symbol){
+      return coinCapRest.getIdBySymbol(symbol);
    }
 
 }

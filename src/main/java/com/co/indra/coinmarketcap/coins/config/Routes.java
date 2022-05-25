@@ -5,6 +5,7 @@ public class Routes {
    public static final String COINS_PATH = "/coins";
 
    public static final String COINS_BASIC_PATH = "/basic";
+   public static final String COINS_SYMBOL_EXTERNAL = "/{symbol}";
 
    public static final String COIN_BASIC_BY_SYMBOL = "/basic/{symbol}";
 
