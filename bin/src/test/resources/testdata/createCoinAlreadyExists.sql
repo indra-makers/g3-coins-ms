@@ -1,0 +1,1 @@
+INSERT INTO public.tbl_coins(symbol, name_coin, icon) values('BIC', 'BIC COIN', 'N/A');
