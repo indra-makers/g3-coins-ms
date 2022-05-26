@@ -54,7 +54,6 @@ public class CoinCategoryControllerTest {
 	}
 
 	@Test
-	@Sql("/testdata/createCategory.sql")
 	public void createCategoryHappyPath() throws Exception {
 		// ----la ejecucion de la prueba misma--------------
 
