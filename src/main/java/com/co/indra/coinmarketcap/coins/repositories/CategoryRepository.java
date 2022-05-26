@@ -34,7 +34,7 @@ public class CategoryRepository {
 	}
 	
 	public List<Category> findCategoryById(int idCategory) {
-		return template.query("SELECT id_category,name_category,description from tbl_categories where id_category=?",new CategoryRowMapper(),idCategory);
+		return template.query("SELECT id_category,name_category,description from tbl_categories where id_category = ?",new CategoryRowMapper(),idCategory);
 	}
 
 }
