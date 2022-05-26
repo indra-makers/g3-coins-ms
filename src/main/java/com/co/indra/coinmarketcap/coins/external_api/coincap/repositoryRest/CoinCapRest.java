@@ -25,14 +25,8 @@ public class CoinCapRest {
         return this.restTemplate.getForObject(url, BodyResponseListCoinCap.class);
     }
 
-    public CoinCapModel getIdBySymbol(String symbol) {
+    public BodyResponseListCoinCap getIdBySymbol(String symbol) {
         String url = "https://api.coincap.io/v2/assets";
-        BodyResponseListCoinCap bodyResponseListCoinCap = restTemplate.getForObject(url, BodyResponseListCoinCap.class);
-        for (CoinCapModel coin : bodyResponseListCoinCap.getData()) {
-            if (coin.getSymbol().equals(symbol) || coin.getId().equals(symbol)) {
-                return coin;
-            }
-        }
-        return null;
+        return restTemplate.getForObject(url, BodyResponseListCoinCap.class);
     }
 }

@@ -17,29 +17,37 @@ import java.util.List;
 @Service
 public class CoinService {
 
-   @Autowired
-   CoinRepository coinRepository;
-   @Autowired
-   CoinCapRest coinCapRest;
+    @Autowired
+    CoinRepository coinRepository;
+    @Autowired
+    CoinCapRest coinCapRest;
 
-   public void createBasicCoin(Coin coin) {
-      if (coinRepository.findBySymbol(coin.getSymbol()).isEmpty()) {
-         coinRepository.createBasicCoin(coin);
-      } else {
-         throw new BusinessException(ErrorCodes.COIN_WITH_SYMBOL_EXISTS);
-      }
-   }
+    public void createBasicCoin(Coin coin) {
+        if (coinRepository.findBySymbol(coin.getSymbol()).isEmpty()) {
+            coinRepository.createBasicCoin(coin);
+        } else {
+            throw new BusinessException(ErrorCodes.COIN_WITH_SYMBOL_EXISTS);
+        }
+    }
 
-   public Page<Coin> findPagedCoins(Pageable pageable) {
-      Page<Coin> coin = coinRepository.findAllPage(pageable);
-      return coin;
-   }
+    public Page<Coin> findPagedCoins(Pageable pageable) {
+        Page<Coin> coin = coinRepository.findAllPage(pageable);
+        return coin;
+    }
 
-   public BodyResponseListCoinCap getCoinsExternal(){
-      return coinCapRest.getAllCoins();
-   }
-   public CoinCapModel getCoinBySymbolId(String symbol){
-      return coinCapRest.getIdBySymbol(symbol);
-   }
+    public BodyResponseListCoinCap getCoinsExternal() {
+        return coinCapRest.getAllCoins();
+    }
+
+    public Coin getCoinBySymbolId(String symbol) {
+        BodyResponseListCoinCap bodyResponseListCoinCap = coinCapRest.getIdBySymbol(symbol);
+        for (CoinCapModel coin : bodyResponseListCoinCap.getData()) {
+            if (coin.getSymbol().equals(symbol) || coin.getId().equals(symbol)) {
+                return new Coin(coin.getSymbol(), coin.getName(), coin.getId(), coin.getPriceUsd(),
+                        coin.getVwap24Hr(), coin.getChangePercent24Hr(), coin.getMarketCapUsd(), coin.getVolumeUsd24Hr(), coin.getSupply());
+            }
+        }
+        return null;
+    }
 
 }

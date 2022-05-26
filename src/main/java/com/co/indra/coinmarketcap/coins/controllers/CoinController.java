@@ -35,7 +35,7 @@ public class CoinController {
       return coinService.getCoinsExternal();
    }
    @GetMapping(Routes.COINS_SYMBOL_EXTERNAL)
-   public CoinCapModel getCoinBySymbolId(@PathVariable("symbol") String symbol){
+   public Coin getCoinBySymbolId(@PathVariable("symbol") String symbol){
       return coinService.getCoinBySymbolId(symbol);
    }
 
