@@ -38,43 +38,39 @@ public class CoinCategoryControllerTest {
 
 	@Test
 	@Sql("/testdata/createCoinCategory.sql")
-
 	public void getCoinByCategoryPageable() throws Exception {
 		// ----la ejecucion de la prueba misma--------------
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders
 				.get(Routes.COINS_CATEGORY_PATH + Routes.COIN_CATEGORY_BY_ID + "?page=0&size=1", 1)
 				.contentType(MediaType.APPLICATION_JSON);
-
 		MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
 		// ------------ las verificaciones--------------------
 		Assertions.assertEquals(200, response.getStatus());
-
 		JsonNode nodes = objectMapper.readTree(response.getContentAsString());
-
 		CoinCategoryList[] data = objectMapper.readValue(nodes.get("content").toString(), CoinCategoryList[].class);
 		Assertions.assertEquals(1, data.length);
-
 		Assertions.assertEquals(1, nodes.get("pageable").get("pageSize").asInt());
 		Assertions.assertEquals(0, nodes.get("pageable").get("pageNumber").asInt());
-
 	}
 
 	@Test
 	@Sql("/testdata/createCategory.sql")
 	public void createCategoryHappyPath() throws Exception {
 		// ----la ejecucion de la prueba misma--------------
-		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(Routes.CATEGORY_PATH)
-				.content("{\n" + "    \"nameCategory\": \"Solana\",\n" + "    \"description\": \"great\"\n" + "}")
-				.contentType(MediaType.APPLICATION_JSON);
+
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+            .post(Routes.CATEGORY_PATH)
+            .content("{\n" +
+            	   "    \"idCategory\": \"1\",\n" +
+                  "    \"nameCategory\": \"Solana\",\n" +
+                  "    \"description\": \"great\"\n" +
+                  "}").contentType(MediaType.APPLICATION_JSON);
 
 		MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
 		Assertions.assertEquals(200, response.getStatus());
-
 		List<Category> category = coinRepository.findCategoryById(1);
 		Assertions.assertEquals(1, category.size());
-
 		Category categoryToAssert = category.get(0);
-
 		Assertions.assertEquals("Solana", categoryToAssert.getNameCategory());
 		Assertions.assertEquals("great", categoryToAssert.getDescription());
 
