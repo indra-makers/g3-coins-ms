@@ -1,6 +1,8 @@
 package com.co.indra.coinmarketcap.coins.controllers;
 
 import com.co.indra.coinmarketcap.coins.config.Routes;
+import com.co.indra.coinmarketcap.coins.externalApi.models.ListResponseBody;
+import com.co.indra.coinmarketcap.coins.externalApi.models.ResponseBody;
 import com.co.indra.coinmarketcap.coins.model.entities.Coin;
 import com.co.indra.coinmarketcap.coins.services.CoinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,4 +30,13 @@ public class CoinController {
       return (Page<Coin>) coinService.findPagedCoins((Pageable) pageable);
    }
 
+   @GetMapping
+   public ListResponseBody findAssets(){
+      return coinService.findAssets();
+   }
+
+   @GetMapping(Routes.SYMBOL_ID_PATH)
+   public Coin getCoinWithSymbol(@PathVariable ("symbol") String symbol){
+      return coinService.findCoinBySymbol(symbol);
+   }
 }

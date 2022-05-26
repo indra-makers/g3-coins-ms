@@ -36,4 +36,6 @@ public class Routes {
 
    public static final String COINS_CATEGORIES_BY_ID = "/coin_category/by_id";
 
+   public static final String SYMBOL_ID_PATH = "/{symbol}";
+
 }
