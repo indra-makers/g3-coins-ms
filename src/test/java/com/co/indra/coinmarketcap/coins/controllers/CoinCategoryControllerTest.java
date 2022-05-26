@@ -42,17 +42,20 @@ public class CoinCategoryControllerTest {
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders
             .post(Routes.CATEGORY_PATH)
             .content("{\n" +
-            		 "    \"idCategory\": \"1\",\n" +
+            		 "    \"idCategory\": \"4\",\n" +
                   "    \"nameCategory\": \"Solana\",\n" +
                   "    \"description\": \"great\"\n" +
                   "}").contentType(MediaType.APPLICATION_JSON);
 
 		 MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
        Assertions.assertEquals(200, response.getStatus());
-       List<Category> coins = coinCategoryRepository.findCategoryById(1);
+       List<Category> coins = coinCategoryRepository.findCategoryById(4);
+
        Assertions.assertEquals(1, coins.size());
        Category CategoryToAssert = coins.get(0);
-       Assertions.assertEquals(1, CategoryToAssert.getIdCategory());
+
+       Assertions.assertEquals(4, CategoryToAssert.getIdCategory());
+
        Assertions.assertEquals("Solana", CategoryToAssert.getNameCategory());
        Assertions.assertEquals("great", CategoryToAssert.getDescription());
 	}
