@@ -66,6 +66,7 @@ public class CoinCategoryControllerTest {
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders
             .post(Routes.CATEGORY_PATH)
             .content("{\n" +
+            	   "    \"idCategory\": \"1\",\n" +
                   "    \"nameCategory\": \"Solana\",\n" +
                   "    \"description\": \"great\"\n" +
                   "}").contentType(MediaType.APPLICATION_JSON);
