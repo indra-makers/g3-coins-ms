@@ -1,8 +1,8 @@
 package com.co.indra.coinmarketcap.coins.services;
 
 import com.co.indra.coinmarketcap.coins.model.entities.CoinCategory;
-import com.co.indra.coinmarketcap.coins.model.responses.CoinCategoryList;
-import com.co.indra.coinmarketcap.coins.model.responses.CoinCategoryResponse;
+import com.co.indra.coinmarketcap.coins.model.responses.coinCategory.CoinCategoryList;
+import com.co.indra.coinmarketcap.coins.model.responses.coinCategory.CoinCategoryResponse;
 import com.co.indra.coinmarketcap.coins.repositories.CoinCategoryRepository;
 
 import org.springframework.data.domain.Page;

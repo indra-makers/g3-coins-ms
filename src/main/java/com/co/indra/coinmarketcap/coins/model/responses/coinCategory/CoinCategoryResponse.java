@@ -1,4 +1,4 @@
-package com.co.indra.coinmarketcap.coins.model.responses;
+package com.co.indra.coinmarketcap.coins.model.responses.coinCategory;
 
 import java.util.List;
 

@@ -1,8 +1,7 @@
 package com.co.indra.coinmarketcap.coins.repositories;
 
-import com.co.indra.coinmarketcap.coins.model.entities.Coin;
 import com.co.indra.coinmarketcap.coins.model.entities.CoinCategory;
-import com.co.indra.coinmarketcap.coins.model.responses.CoinCategoryList;
+import com.co.indra.coinmarketcap.coins.model.responses.coinCategory.CoinCategoryList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -35,5 +35,7 @@ public class Routes {
    public static final String COIN_CATEGORY_BY_ID = "/coin_category/{id}";
 
    public static final String COINS_CATEGORIES_BY_ID = "/coin_category/by_id";
+   
+   public static final String COIN_API_EXTERNAL="/api.coincap.io/v2/assets";
 
 }

@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.co.indra.coinmarketcap.coins.config.Routes;
-import com.co.indra.coinmarketcap.coins.model.responses.CoinCategoryList;
+import com.co.indra.coinmarketcap.coins.model.responses.coinCategory.CoinCategoryList;
 import com.co.indra.coinmarketcap.coins.repositories.CategoryRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
