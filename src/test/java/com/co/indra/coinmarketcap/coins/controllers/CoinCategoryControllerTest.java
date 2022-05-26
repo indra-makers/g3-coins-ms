@@ -28,11 +28,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Transactional
 public class CoinCategoryControllerTest {
 
+	
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
 	private ObjectMapper objectMapper;
-	@Autowired
+@Autowired
 	private CategoryRepository coinRepository;
 
 	@Test
@@ -56,25 +57,30 @@ public class CoinCategoryControllerTest {
 		Assertions.assertEquals(0, nodes.get("pageable").get("pageNumber").asInt());
 
 	}
-
+	
+	
 	@Test
 	@Sql("/testdata/createCategory.sql")
 	public void createCategoryHappyPath() throws Exception {
 		// ----la ejecucion de la prueba misma--------------
-		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(Routes.CATEGORY_PATH)
-				.content("{\n" + "    \"nameCategory\": \"Solana\",\n" + "    \"description\": \"great\"\n" + "}")
-				.contentType(MediaType.APPLICATION_JSON);
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+            .post(Routes.CATEGORY_PATH)
+            .content("{\n" +
+                  "    \"nameCategory\": \"Solana\",\n" +
+                  "    \"description\": \"great\"\n" +
+                  "}").contentType(MediaType.APPLICATION_JSON);
 
-		MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
-		Assertions.assertEquals(200, response.getStatus());
+    MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
+    Assertions.assertEquals(200, response.getStatus());
+    
+    List<Category> category = coinRepository.findCategoryById(1);
+    Assertions.assertEquals(1, category.size());
 
-		List<Category> category = coinRepository.findCategoryById(1);
-		Assertions.assertEquals(1, category.size());
+    Category categoryToAssert = category.get(0);
 
-		Category categoryToAssert = category.get(0);
-
-		Assertions.assertEquals("Solana", categoryToAssert.getNameCategory());
-		Assertions.assertEquals("great", categoryToAssert.getDescription());
+    Assertions.assertEquals("Solana", categoryToAssert.getNameCategory());
+    Assertions.assertEquals("great", categoryToAssert.getDescription());
+  
 
 	}
 }
