@@ -43,17 +43,18 @@ public class CoinCategoryRepository {
 		return template.query("select name_coin, symbol from category_coin where id_category=?",
 				(rs, rn) -> new CoinCategoryList(rs.getString("name_coin"), rs.getString("symbol")), idCategory);
 	}
-	
+
 	public int count() {
-      return template.queryForObject("SELECT count(*) FROM category_coin", Integer.class);
-   }
-	
-   public Page<CoinCategoryList> findAllPage(Pageable page, int idCategory) {
-      Sort.Order order = !page.getSort().isEmpty() ? page.getSort().toList().get(0) : Sort.Order.by("symbol");
-      List<CoinCategoryList> coins = template.query("SELECT name_coin, symbol FROM category_coin where id_category=? ORDER BY " + order.getProperty() + " "
-            + order.getDirection().name() + " LIMIT " + page.getPageSize() + " OFFSET " + page.getOffset(),
-            (rs, rowNum) -> new CoinCategoryList(rs.getString("name_coin"), rs.getString("symbol")),idCategory);
-      return new PageImpl<CoinCategoryList>(coins, page, count());
-   }
+		return template.queryForObject("SELECT count(*) FROM category_coin", Integer.class);
+	}
+
+	public Page<CoinCategoryList> findAllPage(Pageable page, int idCategory) {
+		Sort.Order order = !page.getSort().isEmpty() ? page.getSort().toList().get(0) : Sort.Order.by("symbol");
+		List<CoinCategoryList> coins = template.query(
+				"SELECT name_coin, symbol FROM category_coin where id_category=? ORDER BY " + order.getProperty() + " "
+						+ order.getDirection().name() + " LIMIT " + page.getPageSize() + " OFFSET " + page.getOffset(),
+				(rs, rowNum) -> new CoinCategoryList(rs.getString("name_coin"), rs.getString("symbol")), idCategory);
+		return new PageImpl<CoinCategoryList>(coins, page, count());
+	}
 
 }

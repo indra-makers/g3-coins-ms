@@ -3,7 +3,9 @@ package com.co.indra.coinmarketcap.coins.controllers;
 import com.co.indra.coinmarketcap.coins.config.Routes;
 import com.co.indra.coinmarketcap.coins.model.entities.CoinCategory;
 import com.co.indra.coinmarketcap.coins.model.responses.coinCategory.CoinCategoryList;
+
 import com.co.indra.coinmarketcap.coins.model.responses.coinCategory.CoinCategoryResponse;
+
 import com.co.indra.coinmarketcap.coins.services.CoinCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

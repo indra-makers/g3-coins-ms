@@ -36,4 +36,5 @@ public class CoinCategoryResponse {
 		this.coinCategoryPageable = coinCategoryPageable;
 	}
 
+
 }
