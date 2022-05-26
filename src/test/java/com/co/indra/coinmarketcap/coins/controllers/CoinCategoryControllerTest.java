@@ -32,9 +32,30 @@ public class CoinCategoryControllerTest {
 	private MockMvc mockMvc;
 	@Autowired
 	private ObjectMapper objectMapper;
-
 	@Autowired
-	private CategoryRepository coinRepository;
+	private CategoryRepository coinCategoryRepository;
+	
+	@Test
+   @Sql("/testdata/createCategory.sql")
+	public void createCategoryHappyPath() throws Exception {
+		// ----la ejecucion de la prueba misma--------------
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+            .post(Routes.CATEGORY_PATH)
+            .content("{\n" +
+            		 "    \"idCategory\": \"1\",\n" +
+                  "    \"nameCategory\": \"Solana\",\n" +
+                  "    \"description\": \"great\"\n" +
+                  "}").contentType(MediaType.APPLICATION_JSON);
+
+		 MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
+       Assertions.assertEquals(200, response.getStatus());
+       List<Category> coins = coinCategoryRepository.findCategoryById(1);
+       Assertions.assertEquals(1, coins.size());
+       Category CategoryToAssert = coins.get(0);
+       Assertions.assertEquals(1, CategoryToAssert.getIdCategory());
+       Assertions.assertEquals("Solana", CategoryToAssert.getNameCategory());
+       Assertions.assertEquals("great", CategoryToAssert.getDescription());
+	}
 
 	@Test
 	@Sql("/testdata/createCoinCategory.sql")
@@ -52,27 +73,4 @@ public class CoinCategoryControllerTest {
 		Assertions.assertEquals(1, nodes.get("pageable").get("pageSize").asInt());
 		Assertions.assertEquals(0, nodes.get("pageable").get("pageNumber").asInt());
 	}
-
-	@Test
-	public void createCategoryHappyPath() throws Exception {
-		// ----la ejecucion de la prueba misma--------------
-
-		MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-            .post(Routes.CATEGORY_PATH)
-            .content("{\n" +
-            	   "    \"idCategory\": \"1\",\n" +
-                  "    \"nameCategory\": \"Solana\",\n" +
-                  "    \"description\": \"great\"\n" +
-                  "}").contentType(MediaType.APPLICATION_JSON);
-
-		MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
-		Assertions.assertEquals(200, response.getStatus());
-		List<Category> category = coinRepository.findCategoryById(1);
-		Assertions.assertEquals(1, category.size());
-		Category categoryToAssert = category.get(0);
-		Assertions.assertEquals("Solana", categoryToAssert.getNameCategory());
-		Assertions.assertEquals("great", categoryToAssert.getDescription());
-
-	}
-
 }
