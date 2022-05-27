@@ -18,6 +18,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.co.indra.coinmarketcap.coins.config.Routes;
 import com.co.indra.coinmarketcap.coins.model.entities.Category;
+<<<<<<< HEAD
+=======
+import com.co.indra.coinmarketcap.coins.model.entities.Coin;
+>>>>>>> 14fdf7ca405691e1874c746ae617226d3cef80a5
 import com.co.indra.coinmarketcap.coins.model.responses.coinCategory.CoinCategoryList;
 import com.co.indra.coinmarketcap.coins.repositories.CategoryRepository;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -28,6 +32,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Transactional
 public class CoinCategoryControllerTest {
 
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 14fdf7ca405691e1874c746ae617226d3cef80a5
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -49,6 +57,7 @@ public class CoinCategoryControllerTest {
 
 		 MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
        Assertions.assertEquals(200, response.getStatus());
+<<<<<<< HEAD
        List<Category> coins = coinCategoryRepository.findCategoryById(4);
 
        Assertions.assertEquals(1, coins.size());
@@ -58,6 +67,18 @@ public class CoinCategoryControllerTest {
 
        Assertions.assertEquals("Solana", CategoryToAssert.getNameCategory());
        Assertions.assertEquals("great", CategoryToAssert.getDescription());
+=======
+
+       List<Category> coins = coinCategoryRepository.findCategoryById(4);
+       Assertions.assertEquals(1, coins.size());
+
+       Category CategoryToAssert = coins.get(0);
+
+       Assertions.assertEquals(4, CategoryToAssert.getIdCategory());
+       Assertions.assertEquals("Solana", CategoryToAssert.getNameCategory());
+       Assertions.assertEquals("great", CategoryToAssert.getDescription());
+
+>>>>>>> 14fdf7ca405691e1874c746ae617226d3cef80a5
 	}
 
 	@Test
@@ -67,6 +88,7 @@ public class CoinCategoryControllerTest {
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders
 				.get(Routes.COINS_CATEGORY_PATH + Routes.COIN_CATEGORY_BY_ID + "?page=0&size=1", 1)
 				.contentType(MediaType.APPLICATION_JSON);
+<<<<<<< HEAD
 		MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
 		// ------------ las verificaciones--------------------
 		Assertions.assertEquals(200, response.getStatus());
@@ -76,4 +98,23 @@ public class CoinCategoryControllerTest {
 		Assertions.assertEquals(1, nodes.get("pageable").get("pageSize").asInt());
 		Assertions.assertEquals(0, nodes.get("pageable").get("pageNumber").asInt());
 	}
+=======
+
+		MockHttpServletResponse response = mockMvc.perform(request).andReturn().getResponse();
+		// ------------ las verificaciones--------------------
+		Assertions.assertEquals(200, response.getStatus());
+
+		JsonNode nodes = objectMapper.readTree(response.getContentAsString());
+
+		CoinCategoryList[] data = objectMapper.readValue(nodes.get("content").toString(), CoinCategoryList[].class);
+		Assertions.assertEquals(1, data.length);
+
+		Assertions.assertEquals(1, nodes.get("pageable").get("pageSize").asInt());
+		Assertions.assertEquals(0, nodes.get("pageable").get("pageNumber").asInt());
+
+	}
+	
+	
+
+>>>>>>> 14fdf7ca405691e1874c746ae617226d3cef80a5
 }

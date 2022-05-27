@@ -5,7 +5,10 @@ import com.co.indra.coinmarketcap.coins.model.responses.coinCategory.CoinCategor
 import com.co.indra.coinmarketcap.coins.model.responses.coinCategory.CoinCategoryResponse;
 import com.co.indra.coinmarketcap.coins.repositories.CoinCategoryRepository;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 14fdf7ca405691e1874c746ae617226d3cef80a5
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

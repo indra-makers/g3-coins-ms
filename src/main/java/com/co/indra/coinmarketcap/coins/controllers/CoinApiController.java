@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.co.indra.coinmarketcap.coins.model.entities.Coin;
+import com.co.indra.coinmarketcap.coins.model.responses.coinApi.CoinApi;
 import com.co.indra.coinmarketcap.coins.model.responses.coinApi.CoinApiResponse;
 import com.co.indra.coinmarketcap.coins.services.CoinApiService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,7 +22,7 @@ public class CoinApiController {
 	@GetMapping("/{idCoin}")
 	public CoinApiResponse get(@PathVariable(name = "idCoin") String idCoin){
 
-		return coinApiService.getAlgo(idCoin);
+		return coinApiService.getCoinBySymbol(idCoin);
 	}
 
 }
