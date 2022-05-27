@@ -4,9 +4,6 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 public class Coin implements Serializable {
-
-   private Long idCoin;
-
    @Pattern(regexp = "[A-Z]{3}")
    private String symbol;
 
@@ -35,9 +32,8 @@ public class Coin implements Serializable {
       this.icon = icon;
    }
 
-   public Coin(Long idCoin, String symbol, String nameCoin, String icon, Double price, Double dailyVariation,
+   public Coin( String symbol, String nameCoin, String icon, Double price, Double dailyVariation,
          Double weeklyVariation, Double marketCap, Double dailyVol, Double circulatingSupply) {
-      this.idCoin = idCoin;
       this.symbol = symbol;
       this.nameCoin = nameCoin;
       this.icon = icon;
@@ -48,15 +44,6 @@ public class Coin implements Serializable {
       this.dailyVol = dailyVol;
       this.circulatingSupply = circulatingSupply;
    }
-
-   public Long getIdCoin() {
-      return idCoin;
-   }
-
-   public void setIdCoin(Long idCoin) {
-      this.idCoin = idCoin;
-   }
-
    public String getSymbol() {
       return symbol;
    }
