@@ -1,26 +1,28 @@
 package com.co.indra.coinmarketcap.coins.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 public class Coin implements Serializable {
    @Pattern(regexp = "[A-Z]{3}")
    private String symbol;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private String nameCoin;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private String icon;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private Double price;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private Double dailyVariation;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private Double weeklyVariation;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private Double marketCap;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private Double dailyVol;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private Double circulatingSupply;
 
    public Coin() {

@@ -50,4 +50,13 @@ public class CoinService {
         return null;
     }
 
+    public Coin getCoinBasicBySymbolId(String symbol) {
+        BodyResponseListCoinCap bodyResponseListCoinCap = coinCapRest.getIdBySymbol(symbol);
+        for (CoinCapModel coin : bodyResponseListCoinCap.getData()) {
+            if (coin.getSymbol().equals(symbol) || coin.getId().equals(symbol)) {
+                return new Coin(coin.getSymbol(), coin.getName(), coin.getId());
+            }
+        }
+        return null;
+    }
 }

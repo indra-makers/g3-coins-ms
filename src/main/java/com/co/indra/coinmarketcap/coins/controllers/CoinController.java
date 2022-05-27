@@ -34,9 +34,13 @@ public class CoinController {
    public BodyResponseListCoinCap getCoinsExternal(){
       return coinService.getCoinsExternal();
    }
-   @GetMapping(Routes.COINS_SYMBOL_EXTERNAL)
+   @GetMapping(Routes.COIN_CURRENT_BY_SYMBOL)
    public Coin getCoinBySymbolId(@PathVariable("symbol") String symbol){
       return coinService.getCoinBySymbolId(symbol);
+   }
+   @GetMapping(Routes.COIN_BASIC_BY_SYMBOL)
+   public Coin getCoinBasicBySymbol(@PathVariable("symbol")String symbol){
+      return coinService.getCoinBasicBySymbolId(symbol);
    }
 
 }
