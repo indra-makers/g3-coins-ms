@@ -146,9 +146,12 @@ public class CoinHistoryControllerTest {
 
       // Libreria para deserializar,primer forma de comprobar una lista de datos
       Gson gson = new GsonBuilder().setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
-
+      
+      
+      
       String founderJson = gson.toJson(coinHistoryList);
 
+      
       CoinHistory[] ArrCoinHistory = objectMapper.readValue(founderJson, CoinHistory[].class);
       Assertions.assertEquals(3, ArrCoinHistory.length);
 
