@@ -2,6 +2,7 @@ package com.co.indra.coinmarketcap.coins.services;
 
 import com.co.indra.coinmarketcap.coins.config.ErrorCodes;
 import com.co.indra.coinmarketcap.coins.exceptions.BusinessException;
+import com.co.indra.coinmarketcap.coins.external_api.coincap.model.BodyResponseCoinCap;
 import com.co.indra.coinmarketcap.coins.external_api.coincap.model.BodyResponseListCoinCap;
 import com.co.indra.coinmarketcap.coins.external_api.coincap.model.CoinCapModel;
 import com.co.indra.coinmarketcap.coins.external_api.coincap.repositoryRest.CoinCapRest;
@@ -12,15 +13,28 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CoinService {
 
     @Autowired
-    CoinRepository coinRepository;
-    @Autowired
     CoinCapRest coinCapRest;
+    @Autowired
+    CoinRepository coinRepository;
+    public static Map<String, String> mapSymbolId = new HashMap<String, String>();
+
+    @PostConstruct
+    public void initMap() {
+        BodyResponseListCoinCap bodyResponseListCoinCap = coinCapRest.getAllCoins();
+        for (CoinCapModel coin : bodyResponseListCoinCap.getData()) {
+            mapSymbolId.put(coin.getSymbol(), coin.getId());
+        }
+    }
 
     public void createBasicCoin(Coin coin) {
         if (coinRepository.findBySymbol(coin.getSymbol()).isEmpty()) {
@@ -35,28 +49,27 @@ public class CoinService {
         return coin;
     }
 
-    public BodyResponseListCoinCap getCoinsExternal() {
-        return coinCapRest.getAllCoins();
+    public List<Coin> getCoinsExternal() {
+       List <Coin> coins = new ArrayList<>();
+        BodyResponseListCoinCap bodyResponseListCoinCap = coinCapRest.getAllCoins();
+        for (CoinCapModel coinCapModel : bodyResponseListCoinCap.getData()){
+            coins.add(new Coin(coinCapModel.getSymbol(), coinCapModel.getName(), coinCapModel.getId(), coinCapModel.getPriceUsd(),
+                    coinCapModel.getVwap24Hr(), coinCapModel.getChangePercent24Hr(), coinCapModel.getMarketCapUsd(),
+                    coinCapModel.getVolumeUsd24Hr(), coinCapModel.getSupply()));
+        }
+        return coins;
     }
 
     public Coin getCoinBySymbolId(String symbol) {
-        BodyResponseListCoinCap bodyResponseListCoinCap = coinCapRest.getIdBySymbol(symbol);
-        for (CoinCapModel coin : bodyResponseListCoinCap.getData()) {
-            if (coin.getSymbol().equals(symbol) || coin.getId().equals(symbol)) {
-                return new Coin(coin.getSymbol(), coin.getName(), coin.getId(), coin.getPriceUsd(),
-                        coin.getVwap24Hr(), coin.getChangePercent24Hr(), coin.getMarketCapUsd(), coin.getVolumeUsd24Hr(), coin.getSupply());
-            }
-        }
-        return null;
+        BodyResponseCoinCap bodyResponseCoinCap = coinCapRest.getCoinBySymbol(mapSymbolId.get(symbol));
+        return new Coin(bodyResponseCoinCap.getData().getSymbol(), bodyResponseCoinCap.getData().getName(), bodyResponseCoinCap.getData().getId(), bodyResponseCoinCap.getData().getPriceUsd(),
+                bodyResponseCoinCap.getData().getVwap24Hr(), bodyResponseCoinCap.getData().getChangePercent24Hr(), bodyResponseCoinCap.getData().getMarketCapUsd(),
+                bodyResponseCoinCap.getData().getVolumeUsd24Hr(), bodyResponseCoinCap.getData().getSupply());
     }
 
-    public Coin getCoinBasicBySymbolId(String symbol) {
-        BodyResponseListCoinCap bodyResponseListCoinCap = coinCapRest.getIdBySymbol(symbol);
-        for (CoinCapModel coin : bodyResponseListCoinCap.getData()) {
-            if (coin.getSymbol().equals(symbol) || coin.getId().equals(symbol)) {
-                return new Coin(coin.getSymbol(), coin.getName(), coin.getId());
-            }
-        }
-        return null;
+    public Coin getCoinBasicBySymbolId(String symbol){
+       BodyResponseCoinCap bodyResponseCoinCap = coinCapRest.getCoinBySymbol(mapSymbolId.get(symbol));
+       return new Coin(bodyResponseCoinCap.getData().getSymbol(), bodyResponseCoinCap.getData().getName(), bodyResponseCoinCap.getData().getId());
     }
+
 }

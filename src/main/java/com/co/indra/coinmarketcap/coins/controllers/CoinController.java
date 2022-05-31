@@ -12,6 +12,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -31,7 +32,7 @@ public class CoinController {
       return (Page<Coin>) coinService.findPagedCoins((Pageable) pageable);
    }
    @GetMapping
-   public BodyResponseListCoinCap getCoinsExternal(){
+   public List<Coin> getCoinsExternal(){
       return coinService.getCoinsExternal();
    }
    @GetMapping(Routes.COIN_CURRENT_BY_SYMBOL)
