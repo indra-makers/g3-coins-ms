@@ -4,6 +4,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.co.indra.coinmarketcap.coins.config.Routes;
 import com.co.indra.coinmarketcap.coins.model.responses.coinApi.CoinApiResponse;
 
 @Component
@@ -15,9 +16,14 @@ public class CoinExternalApi {
 	}
 
 	public CoinApiResponse getPostsPlainJSON() {
-		String url = "https://api.coincap.io/v2/assets/";
+		String url = Routes.COIN_API_EXTERNAL;
 		return this.restTemplate.getForObject(url, CoinApiResponse.class);
-
 	}
+	
 
+
+	public RestTemplate getRestTemplate() {
+		return restTemplate;
+	}
+	
 }

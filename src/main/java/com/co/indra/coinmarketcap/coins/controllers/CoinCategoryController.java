@@ -3,12 +3,7 @@ package com.co.indra.coinmarketcap.coins.controllers;
 import com.co.indra.coinmarketcap.coins.config.Routes;
 import com.co.indra.coinmarketcap.coins.model.entities.CoinCategory;
 import com.co.indra.coinmarketcap.coins.model.responses.coinCategory.CoinCategoryList;
-<<<<<<< HEAD
 
-import com.co.indra.coinmarketcap.coins.model.responses.coinCategory.CoinCategoryResponse;
-
-=======
->>>>>>> 14fdf7ca405691e1874c746ae617226d3cef80a5
 import com.co.indra.coinmarketcap.coins.services.CoinCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

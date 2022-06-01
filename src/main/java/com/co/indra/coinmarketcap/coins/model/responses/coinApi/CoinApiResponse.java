@@ -5,7 +5,7 @@ import java.util.List;
 public class CoinApiResponse {
 
 	private List<CoinApi> data;
-	private CoinApi asset;
+	private CoinApi assets;
 	private Double timestamp;
 
 	public CoinApiResponse() {
@@ -18,9 +18,9 @@ public class CoinApiResponse {
 		this.timestamp = timestamp;
 	}
 
-	public CoinApiResponse(CoinApi asset, Double timestamp) {
+	public CoinApiResponse(CoinApi assets, Double timestamp) {
 		super();
-		this.asset = asset;
+		this.assets = assets;
 		this.timestamp = timestamp;
 	}
 
@@ -40,12 +40,12 @@ public class CoinApiResponse {
 		this.timestamp = timestamp;
 	}
 
-	public CoinApi getasset() {
-		return asset;
+	public CoinApi getAssets() {
+		return assets;
 	}
 
-	public void setasset(CoinApi asset) {
-		this.asset = asset;
+	public void setAssets(CoinApi assets) {
+		this.assets = assets;
 	}
 
 }
