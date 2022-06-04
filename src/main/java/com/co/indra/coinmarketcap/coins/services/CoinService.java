@@ -26,15 +26,7 @@ public class CoinService {
     CoinCapRest coinCapRest;
     @Autowired
     CoinRepository coinRepository;
-    public static Map<String, String> mapSymbolId = new HashMap<String, String>();
 
-    @PostConstruct
-    public void initMap() {
-        BodyResponseListCoinCap bodyResponseListCoinCap = coinCapRest.getAllCoins();
-        for (CoinCapModel coin : bodyResponseListCoinCap.getData()) {
-            mapSymbolId.put(coin.getSymbol(), coin.getId());
-        }
-    }
 
     public void createBasicCoin(Coin coin) {
         if (coinRepository.findBySymbol(coin.getSymbol()).isEmpty()) {
@@ -61,14 +53,14 @@ public class CoinService {
     }
 
     public Coin getCoinBySymbolId(String symbol) {
-        BodyResponseCoinCap bodyResponseCoinCap = coinCapRest.getCoinBySymbol(mapSymbolId.get(symbol));
+        BodyResponseCoinCap bodyResponseCoinCap = coinCapRest.getCoinBySymbol(symbol);
         return new Coin(bodyResponseCoinCap.getData().getSymbol(), bodyResponseCoinCap.getData().getName(), bodyResponseCoinCap.getData().getId(), bodyResponseCoinCap.getData().getPriceUsd(),
                 bodyResponseCoinCap.getData().getVwap24Hr(), bodyResponseCoinCap.getData().getChangePercent24Hr(), bodyResponseCoinCap.getData().getMarketCapUsd(),
                 bodyResponseCoinCap.getData().getVolumeUsd24Hr(), bodyResponseCoinCap.getData().getSupply());
     }
 
     public Coin getCoinBasicBySymbolId(String symbol){
-       BodyResponseCoinCap bodyResponseCoinCap = coinCapRest.getCoinBySymbol(mapSymbolId.get(symbol));
+       BodyResponseCoinCap bodyResponseCoinCap = coinCapRest.getCoinBySymbol(symbol);
        return new Coin(bodyResponseCoinCap.getData().getSymbol(), bodyResponseCoinCap.getData().getName(), bodyResponseCoinCap.getData().getId());
     }
 
