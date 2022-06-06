@@ -27,7 +27,7 @@ public class CoinCapRest {
 
     private Map<String, String> mapSymbolId = new HashMap<String, String>();
 
-    //@PostConstruct
+    @PostConstruct
     public void initMap() {
         BodyResponseListCoinCap bodyResponseListCoinCap = getAllCoins();
         for (CoinCapModel coin : bodyResponseListCoinCap.getData()) {
@@ -36,8 +36,7 @@ public class CoinCapRest {
     }
 
     public BodyResponseListCoinCap getAllCoins() {
-        String url = apiUrl;
-        ResponseEntity<BodyResponseListCoinCap> response = restTemplate.getForEntity(url, BodyResponseListCoinCap.class);
+        ResponseEntity<BodyResponseListCoinCap> response = restTemplate.getForEntity(apiUrl, BodyResponseListCoinCap.class);
         if (response.getStatusCode() != HttpStatus.OK) {
             throw new NotFoundException(ErrorCodes.ERROR_COINCAP_API);
         }

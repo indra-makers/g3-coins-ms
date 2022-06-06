@@ -13,11 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class CoinService {
@@ -42,26 +39,22 @@ public class CoinService {
     }
 
     public List<Coin> getCoinsExternal() {
-       List <Coin> coins = new ArrayList<>();
+        List<Coin> coins = new ArrayList<>();
         BodyResponseListCoinCap bodyResponseListCoinCap = coinCapRest.getAllCoins();
-        for (CoinCapModel coinCapModel : bodyResponseListCoinCap.getData()){
-            coins.add(new Coin(coinCapModel.getSymbol(), coinCapModel.getName(), coinCapModel.getId(), coinCapModel.getPriceUsd(),
-                    coinCapModel.getVwap24Hr(), coinCapModel.getChangePercent24Hr(), coinCapModel.getMarketCapUsd(),
-                    coinCapModel.getVolumeUsd24Hr(), coinCapModel.getSupply()));
+        for (CoinCapModel coinCapModel : bodyResponseListCoinCap.getData()) {
+            coins.add(new Coin(coinCapModel.getSymbol(), coinCapModel.getName(), coinCapModel.getId(), coinCapModel.getPriceUsd(), coinCapModel.getVwap24Hr(), coinCapModel.getChangePercent24Hr(), coinCapModel.getMarketCapUsd(), coinCapModel.getVolumeUsd24Hr(), coinCapModel.getSupply()));
         }
         return coins;
     }
 
     public Coin getCoinBySymbolId(String symbol) {
         BodyResponseCoinCap bodyResponseCoinCap = coinCapRest.getCoinBySymbol(symbol);
-        return new Coin(bodyResponseCoinCap.getData().getSymbol(), bodyResponseCoinCap.getData().getName(), bodyResponseCoinCap.getData().getId(), bodyResponseCoinCap.getData().getPriceUsd(),
-                bodyResponseCoinCap.getData().getVwap24Hr(), bodyResponseCoinCap.getData().getChangePercent24Hr(), bodyResponseCoinCap.getData().getMarketCapUsd(),
-                bodyResponseCoinCap.getData().getVolumeUsd24Hr(), bodyResponseCoinCap.getData().getSupply());
+        return new Coin(bodyResponseCoinCap.getData().getSymbol(), bodyResponseCoinCap.getData().getName(), bodyResponseCoinCap.getData().getId(), bodyResponseCoinCap.getData().getPriceUsd(), bodyResponseCoinCap.getData().getVwap24Hr(), bodyResponseCoinCap.getData().getChangePercent24Hr(), bodyResponseCoinCap.getData().getMarketCapUsd(), bodyResponseCoinCap.getData().getVolumeUsd24Hr(), bodyResponseCoinCap.getData().getSupply());
     }
 
-    public Coin getCoinBasicBySymbolId(String symbol){
-       BodyResponseCoinCap bodyResponseCoinCap = coinCapRest.getCoinBySymbol(symbol);
-       return new Coin(bodyResponseCoinCap.getData().getSymbol(), bodyResponseCoinCap.getData().getName(), bodyResponseCoinCap.getData().getId());
+    public Coin getCoinBasicBySymbolId(String symbol) {
+        BodyResponseCoinCap bodyResponseCoinCap = coinCapRest.getCoinBySymbol(symbol);
+        return new Coin(bodyResponseCoinCap.getData().getSymbol(), bodyResponseCoinCap.getData().getName(), bodyResponseCoinCap.getData().getId());
     }
 
 }
