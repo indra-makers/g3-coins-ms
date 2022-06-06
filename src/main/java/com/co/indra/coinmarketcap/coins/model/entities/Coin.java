@@ -1,29 +1,28 @@
 package com.co.indra.coinmarketcap.coins.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 public class Coin implements Serializable {
-
-   private Long idCoin;
-
    @Pattern(regexp = "[A-Z]{3}")
    private String symbol;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private String nameCoin;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private String icon;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private Double price;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private Double dailyVariation;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private Double weeklyVariation;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private Double marketCap;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private Double dailyVol;
-
+   @JsonInclude(JsonInclude.Include.NON_NULL)
    private Double circulatingSupply;
 
    public Coin() {
@@ -35,9 +34,8 @@ public class Coin implements Serializable {
       this.icon = icon;
    }
 
-   public Coin(Long idCoin, String symbol, String nameCoin, String icon, Double price, Double dailyVariation,
+   public Coin(String symbol, String nameCoin, String icon, Double price, Double dailyVariation,
          Double weeklyVariation, Double marketCap, Double dailyVol, Double circulatingSupply) {
-      this.idCoin = idCoin;
       this.symbol = symbol;
       this.nameCoin = nameCoin;
       this.icon = icon;
@@ -47,14 +45,6 @@ public class Coin implements Serializable {
       this.marketCap = marketCap;
       this.dailyVol = dailyVol;
       this.circulatingSupply = circulatingSupply;
-   }
-
-   public Long getIdCoin() {
-      return idCoin;
-   }
-
-   public void setIdCoin(Long idCoin) {
-      this.idCoin = idCoin;
    }
 
    public String getSymbol() {

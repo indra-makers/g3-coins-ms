@@ -21,7 +21,6 @@ class CoinRowMapper implements RowMapper<Coin> {
    @Override
    public Coin mapRow(ResultSet rs, int rowNum) throws SQLException {
       Coin coin1 = new Coin();
-      coin1.setIdCoin(rs.getLong("id_coin"));
       coin1.setSymbol(rs.getString("symbol"));
       coin1.setNameCoin(rs.getString("name_coin"));
       coin1.setIcon(rs.getString("icon"));
