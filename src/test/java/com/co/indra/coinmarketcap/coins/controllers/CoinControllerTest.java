@@ -8,10 +8,12 @@ import com.co.indra.coinmarketcap.coins.repositories.CoinRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -39,6 +41,9 @@ public class CoinControllerTest {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private RedisConnection redisConnection;
 
 
     @Test
@@ -107,5 +112,12 @@ public class CoinControllerTest {
         Assertions.assertEquals(4, nodes.get("pageable").get("pageSize").asInt());
         Assertions.assertEquals(0, nodes.get("pageable").get("pageNumber").asInt());
     }
+
+    @BeforeEach
+    public void beforeEach() {
+        redisConnection.flushAll();
+    }
+
+
 
 }

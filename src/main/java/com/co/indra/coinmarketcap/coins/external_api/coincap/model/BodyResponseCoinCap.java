@@ -1,6 +1,8 @@
 package com.co.indra.coinmarketcap.coins.external_api.coincap.model;
 
-public class BodyResponseCoinCap {
+import java.io.Serializable;
+
+public class BodyResponseCoinCap implements Serializable {
     private CoinCapModel data;
     private Double timestamp;
 
