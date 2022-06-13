@@ -28,18 +28,24 @@ public class CoinController {
       coinService.createBasicCoin(coin);
    }
 
+   @Cacheable(value = "coin", cacheManager = "expire30seg", key = "", unless = "#result == null")
    @GetMapping(Routes.COINS_BASIC_BY_ID)
    public Page<Coin> getCoinsPaged(@PageableDefault(page = 0, size = 10) Pageable pageable) {
       return (Page<Coin>) coinService.findPagedCoins((Pageable) pageable);
    }
+
+   @Cacheable(value = "coin", cacheManager = "expire30seg", key = "", unless = "#result == null")
    @GetMapping
    public List<Coin> getCoinsExternal(){
       return coinService.getCoinsExternal();
    }
+
+   @Cacheable(value = "coin", cacheManager = "expire30seg", key = "", unless = "#result == null")
    @GetMapping(Routes.COIN_CURRENT_BY_SYMBOL)
    public Coin getCoinBySymbolId(@PathVariable("symbol") String symbol){
       return coinService.getCoinBySymbolId(symbol);
    }
+   @Cacheable(value = "coin", cacheManager = "expire30seg", key = "", unless = "#result == null")
    @GetMapping(Routes.COIN_BASIC_BY_SYMBOL)
    public Coin getCoinBasicBySymbol(@PathVariable("symbol")String symbol){
       return coinService.getCoinBasicBySymbolId(symbol);

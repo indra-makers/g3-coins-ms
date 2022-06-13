@@ -36,7 +36,7 @@ public class CoinCapRest {
         }
     }
 
-    @Cacheable(value = "coin", cacheManager = "expire30seg", key = "", unless = "#result == null")
+
     public BodyResponseListCoinCap getAllCoins() {
         ResponseEntity<BodyResponseListCoinCap> response = restTemplate.getForEntity(apiUrl, BodyResponseListCoinCap.class);
         if (response.getStatusCode() != HttpStatus.OK) {
@@ -45,7 +45,6 @@ public class CoinCapRest {
         return response.getBody();
     }
 
-    @Cacheable(value = "coin", cacheManager = "expire30seg", key = "#symbol", unless = "#result == null")
     public BodyResponseCoinCap getCoinBySymbol(String symbol) {
         String url = apiUrl+"/"+mapSymbolId.get(symbol);
         ResponseEntity<BodyResponseCoinCap> response = restTemplate.getForEntity(url, BodyResponseCoinCap.class);
