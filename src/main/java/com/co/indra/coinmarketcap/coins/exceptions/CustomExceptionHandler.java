@@ -1,5 +1,6 @@
 package com.co.indra.coinmarketcap.coins.exceptions;
 
+import com.co.indra.coinmarketcap.coins.config.ErrorCodes;
 import com.co.indra.coinmarketcap.coins.model.responses.ErrorResponse;
 
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 @ControllerAdvice
 public class CustomExceptionHandler {
@@ -31,6 +33,13 @@ public class CustomExceptionHandler {
    @ExceptionHandler(MethodArgumentNotValidException.class)
    public ErrorResponse handleNotFoundException(MethodArgumentNotValidException exception) {
       return new ErrorResponse("BAD_PARAMETERS", exception.getMessage());
+   }
+
+   @ResponseStatus(HttpStatus.NOT_FOUND)
+   @ResponseBody
+   @ExceptionHandler(HttpClientErrorException.NotFound.class)
+   public ErrorResponse handleNotFoundExceptionExternalApi(HttpClientErrorException.NotFound exception) {
+      return new ErrorResponse("ERROR", ErrorCodes.ERROR_COINCAP_API.getMessage());
    }
 
    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

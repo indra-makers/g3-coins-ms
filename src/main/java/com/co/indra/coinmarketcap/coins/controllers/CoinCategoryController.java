@@ -28,12 +28,6 @@ public class CoinCategoryController {
 
 	}
 
-	/*
-	 * @GetMapping(Routes.COIN_CATEGORY_BY_ID) public CoinCategoryResponse
-	 * getCoinByCategory(@PathVariable int id) { return
-	 * coinCategoryService.getCoinByCategory(id); }
-	 */
-
 	@GetMapping(Routes.COIN_CATEGORY_BY_ID)
 	public Page<CoinCategoryList> getCoinByCategoryPaged(@PageableDefault(page = 0, size = 10) Pageable pageable,
 			@PathVariable int id) {
