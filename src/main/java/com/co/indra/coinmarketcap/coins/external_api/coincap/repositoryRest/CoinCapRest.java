@@ -7,6 +7,7 @@ import com.co.indra.coinmarketcap.coins.external_api.coincap.model.BodyResponseL
 import com.co.indra.coinmarketcap.coins.external_api.coincap.model.CoinCapModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -34,6 +35,7 @@ public class CoinCapRest {
             mapSymbolId.put(coin.getSymbol(), coin.getId());
         }
     }
+
 
     public BodyResponseListCoinCap getAllCoins() {
         ResponseEntity<BodyResponseListCoinCap> response = restTemplate.getForEntity(apiUrl, BodyResponseListCoinCap.class);

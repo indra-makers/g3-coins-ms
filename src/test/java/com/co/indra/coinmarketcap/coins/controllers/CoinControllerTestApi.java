@@ -1,17 +1,14 @@
 package com.co.indra.coinmarketcap.coins.controllers;
 
 import com.co.indra.coinmarketcap.coins.config.ErrorCodes;
-import com.co.indra.coinmarketcap.coins.config.RestTemplateConfig;
 import com.co.indra.coinmarketcap.coins.config.Routes;
 import com.co.indra.coinmarketcap.coins.external_api.coincap.model.BodyResponseCoinCap;
 import com.co.indra.coinmarketcap.coins.external_api.coincap.model.BodyResponseListCoinCap;
 import com.co.indra.coinmarketcap.coins.external_api.coincap.model.CoinCapModel;
-import com.co.indra.coinmarketcap.coins.external_api.coincap.repositoryRest.CoinCapRest;
 import com.co.indra.coinmarketcap.coins.model.entities.Coin;
 import com.co.indra.coinmarketcap.coins.model.responses.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

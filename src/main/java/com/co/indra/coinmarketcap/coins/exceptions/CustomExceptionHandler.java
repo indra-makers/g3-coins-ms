@@ -37,6 +37,7 @@ public class CustomExceptionHandler {
    @ResponseBody
    @ExceptionHandler(Exception.class)
    public ErrorResponse handleException(Exception exception) {
+      exception.printStackTrace();
       return new ErrorResponse("500", exception.getMessage());
    }
 }
