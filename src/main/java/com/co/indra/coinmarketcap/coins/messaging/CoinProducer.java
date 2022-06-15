@@ -24,7 +24,7 @@ public class CoinProducer {
       @Autowired
       private ObjectMapper objectMapper;
 
-      public void sendCoin(CoinCapModel coin) {
+      public void sendPortfolio(CoinCapModel coin) {
          try {
             String message= objectMapper.writeValueAsString(coin);
             rabbitTemplate.convertAndSend("portafolio_coin_queue",message);

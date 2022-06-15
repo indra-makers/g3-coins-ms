@@ -55,7 +55,7 @@ public class CoinService {
     public Coin getCoinBySymbolId(String symbol) {
         BodyResponseCoinCap bodyResponseCoinCap = coinCapRest.getCoinBySymbol(symbol);     
         CoinCapModel coin = bodyResponseCoinCap.getData();
-        coinProducer.sendCoin(coin);
+        coinProducer.sendPortfolio(coin);
         return new Coin(bodyResponseCoinCap.getData().getSymbol(), bodyResponseCoinCap.getData().getName(), bodyResponseCoinCap.getData().getId(), bodyResponseCoinCap.getData().getPriceUsd(), bodyResponseCoinCap.getData().getVwap24Hr(), bodyResponseCoinCap.getData().getChangePercent24Hr(), bodyResponseCoinCap.getData().getMarketCapUsd(), bodyResponseCoinCap.getData().getVolumeUsd24Hr(), bodyResponseCoinCap.getData().getSupply());
     }
 
