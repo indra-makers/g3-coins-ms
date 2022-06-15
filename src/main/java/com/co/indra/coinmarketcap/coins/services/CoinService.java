@@ -6,6 +6,7 @@ import com.co.indra.coinmarketcap.coins.external_api.coincap.model.BodyResponseC
 import com.co.indra.coinmarketcap.coins.external_api.coincap.model.BodyResponseListCoinCap;
 import com.co.indra.coinmarketcap.coins.external_api.coincap.model.CoinCapModel;
 import com.co.indra.coinmarketcap.coins.external_api.coincap.repositoryRest.CoinCapRest;
+import com.co.indra.coinmarketcap.coins.messaging.CoinProducer;
 import com.co.indra.coinmarketcap.coins.model.entities.Coin;
 import com.co.indra.coinmarketcap.coins.repositories.CoinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,12 @@ public class CoinService {
 
     @Autowired
     CoinCapRest coinCapRest;
+    
     @Autowired
     CoinRepository coinRepository;
+    
+    @Autowired
+    CoinProducer coinProducer;
 
 
     public void createBasicCoin(Coin coin) {
@@ -48,7 +53,9 @@ public class CoinService {
     }
 
     public Coin getCoinBySymbolId(String symbol) {
-        BodyResponseCoinCap bodyResponseCoinCap = coinCapRest.getCoinBySymbol(symbol);
+        BodyResponseCoinCap bodyResponseCoinCap = coinCapRest.getCoinBySymbol(symbol);     
+        CoinCapModel coin = bodyResponseCoinCap.getData();
+        coinProducer.sendCoin(coin);
         return new Coin(bodyResponseCoinCap.getData().getSymbol(), bodyResponseCoinCap.getData().getName(), bodyResponseCoinCap.getData().getId(), bodyResponseCoinCap.getData().getPriceUsd(), bodyResponseCoinCap.getData().getVwap24Hr(), bodyResponseCoinCap.getData().getChangePercent24Hr(), bodyResponseCoinCap.getData().getMarketCapUsd(), bodyResponseCoinCap.getData().getVolumeUsd24Hr(), bodyResponseCoinCap.getData().getSupply());
     }
 
