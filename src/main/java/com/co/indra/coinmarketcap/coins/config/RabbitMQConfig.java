@@ -4,11 +4,26 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
+
 @Configuration
 public class RabbitMQConfig {
-@Bean
-	public Queue testQueue() {
-		return new Queue("watchlist_coin_queue");
+   
+   
+   
+   @Bean
+      public Queue testQueue() {
+         
+         return new Queue ("portafolio_coin_queue");
+      
+
+   }
+
+
+  @Bean
+	public Queue testQueuePortolio() {
+ 	return new Queue("watchlist_coin_queue");
 	}
 	
+
 }
