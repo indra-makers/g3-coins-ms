@@ -8,9 +8,6 @@ import com.co.indra.coinmarketcap.coins.external_api.coincap.model.CoinCapModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-
-
-
 @Component
 public class CoinProducer {
    
@@ -33,7 +30,15 @@ public class CoinProducer {
          }
       }
 
-}
-   
+	
+      public void sendCoin(CoinCapModel coin) {
+          try {
+            String message= objectMapper.writeValueAsString(coin);
+            rabbitTemplate.convertAndSend("watchlist_coin_queue",message);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
 
+}
 
