@@ -21,8 +21,8 @@ public class RabbitMQConfig {
 
 
   @Bean
-	    public Queue testQueue() {
-		    return new Queue("watchlist_coin_queue");
+	public Queue testQueuePortolio() {
+ 	return new Queue("watchlist_coin_queue");
 	}
 	
 
