@@ -6,7 +6,7 @@ import com.co.indra.coinmarketcap.coins.external_api.coincap.model.BodyResponseC
 import com.co.indra.coinmarketcap.coins.external_api.coincap.model.BodyResponseListCoinCap;
 import com.co.indra.coinmarketcap.coins.external_api.coincap.model.CoinCapModel;
 import com.co.indra.coinmarketcap.coins.external_api.coincap.repositoryRest.CoinCapRest;
-import com.co.indra.coinmarketcap.coins.messagin.CoinProducer;
+import com.co.indra.coinmarketcap.coins.messaging.CoinProducer;
 import com.co.indra.coinmarketcap.coins.model.entities.Coin;
 import com.co.indra.coinmarketcap.coins.repositories.CoinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
