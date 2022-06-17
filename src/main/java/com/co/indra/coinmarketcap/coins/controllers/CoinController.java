@@ -20,6 +20,7 @@ public class CoinController {
    @Autowired
    CoinService coinService;
 
+   /*
    @PostMapping
    public void createBasicCoin(@Valid @RequestBody Coin coin) {
       coinService.createBasicCoin(coin);
@@ -30,6 +31,8 @@ public class CoinController {
    public Page<Coin> getCoinsPaged(@PageableDefault(page = 0, size = 10) Pageable pageable) {
       return (Page<Coin>) coinService.findPagedCoins((Pageable) pageable);
    }
+
+    */
 
    @Cacheable(value = "all_coins", cacheManager = "expire30seg", key = "", unless = "#result == null")
    @GetMapping

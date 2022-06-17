@@ -1,5 +1,6 @@
 package com.co.indra.coinmarketcap.coins.messaging;
 
+import com.co.indra.coinmarketcap.coins.model.entities.Coin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,35 +11,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
 public class CoinProducer {
-   
-   
-
-
-
       @Autowired
       private RabbitTemplate rabbitTemplate;
 
       @Autowired
       private ObjectMapper objectMapper;
 
-      public void sendPortfolio(CoinCapModel coin) {
+      public void sendCoin(Coin coin) {
          try {
             String message= objectMapper.writeValueAsString(coin);
             rabbitTemplate.convertAndSend("portafolio_coin_queue",message);
+            rabbitTemplate.convertAndSend("watchlist_coin_queue",message);
          } catch (Exception e) {
             e.printStackTrace();
          }
       }
-
-	
-      public void sendCoin(CoinCapModel coin) {
-          try {
-            String message= objectMapper.writeValueAsString(coin);
-            rabbitTemplate.convertAndSend("watchlist_coin_queue",message);
-          } catch (Exception e) {
-            e.printStackTrace();
-          }
-        }
-
 }
 
