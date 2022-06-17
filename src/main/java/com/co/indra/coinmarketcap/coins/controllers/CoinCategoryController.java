@@ -22,7 +22,7 @@ public class CoinCategoryController {
 	@Autowired
 	CoinCategoryService coinCategoryService;
 
-	/*
+
 	@PostMapping
 	public void createCoinCategory(@RequestBody CoinCategory coinCategory) {
 		coinCategoryService.create(coinCategory);
@@ -34,6 +34,6 @@ public class CoinCategoryController {
 			@PathVariable int id) {
 		return coinCategoryService.findPagedCategory(pageable, id);
 	}
-	 */
+
 
 }
